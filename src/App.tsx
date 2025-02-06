@@ -1,10 +1,11 @@
 import "./App.css";
+import Header from "./components/header";
 
 function App() {
   return (
-    <>
-      <div className="text-8xl text-green-600">Yummy</div>
-    </>
+    <div className="bg-secondary min-h-screen overflow-hidden">
+      <Header />
+    </div>
   );
 }
 
