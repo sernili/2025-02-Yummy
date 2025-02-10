@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
+import Banner from "../components/banner/banner";
+import Header from "../components/header/header";
 
 // Fonts
 const roboto = Roboto({
@@ -38,17 +40,15 @@ export default function RootLayout({
       lang="en"
       className={`${roboto.variable} ${knewave.variable} ${caveat.variable}`}
     >
-      <head>
-        <title>React App</title>
-        <meta name="description" content="Web site created..." />
-      </head>
-      {/* <body
-        className={`${ptSerif.className} ${montserrat.variable} ${poppins.variable}`}
-      ></body> */}
-      <body className={"min-h-screen bg-background font-sans antialiased"}>
+      <body
+        className={
+          "min-h-screen bg-secondary font-sans antialiased overflow-hidden"
+        }
+      >
+        <Header />
+        <Banner />
         {children}
       </body>
-      s
     </html>
   );
 }
