@@ -23,6 +23,7 @@ export default function Banner() {
         src={banner}
         alt="banner"
         className="object-cover max-h-96 w-full object-center rounded-4xl overflow-hidden"
+        priority
       />
       <h1 className="text-9xl font-serif text-white absolute bottom-6 left-6">
         {titlesMap[pathname]}
