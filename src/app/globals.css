@@ -1,14 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Knewave&display=swap");
+
 @import "tailwindcss";
 
 @theme {
-  --font-logo: "Knewave", cursive;
-  --font-sans: "Inter", sans-serif;
-  --font-serif: "Caveat", cursive;
+  --font-logo: var(--font-logo);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
   --breakpoint-3xl: 1920px;
   --color-primary: #607e72;
   --color-secondary: #eaedec;
-}
-
-@layer components {
 }

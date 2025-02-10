@@ -1,12 +1,9 @@
-import "./App.css";
-import Header from "./components/header";
+import Header from "../components/header";
 
-function App() {
+export default function Page() {
   return (
     <div className="bg-secondary min-h-screen overflow-hidden">
       <Header />
     </div>
   );
 }
-
-export default App;
