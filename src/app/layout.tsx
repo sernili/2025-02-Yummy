@@ -42,7 +42,7 @@ export default function RootLayout({
     >
       <body
         className={
-          "min-h-screen bg-secondary font-sans antialiased overflow-hidden"
+          "min-h-screen bg-secondary font-sans antialiased overflow-hidden p-4"
         }
       >
         <Header />
