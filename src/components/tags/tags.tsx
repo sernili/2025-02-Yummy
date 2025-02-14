@@ -2,36 +2,32 @@
 
 import { useState } from "react";
 
-// TODO: move all type definitions to a separate file?
 export type Tag = {
   label: string;
   value: string;
   selected: boolean; // multiple tags can be selected
 };
 
-interface TagsProps {
-  initialTags: Tag[];
-  onTagsUpdate: (updatedTags: Tag[]) => void;
-}
-
 export default function TagList() {
-  const sortTags = (tags: Tag[]): Tag[] => {
-    return [...tags].sort(
-      (a, b) => (b.selected ? 1 : -1) - (a.selected ? 1 : -1),
-    );
+  const sortTags = (allTags: Tag[]) => {
+    const selectedTags = allTags.filter((tag) => tag.selected);
+    selectedTags.sort((a, b) => a.label.localeCompare(b.label));
+
+    const otherTags = allTags.filter((tag) => !tag.selected);
+    otherTags.sort((a, b) => a.label.localeCompare(b.label));
+
+    return [...selectedTags, ...otherTags];
   };
 
   const initialTags: Tag[] = [
-    { label: "Tag1", value: "tag1", selected: true },
-    { label: "Tag2", value: "tag2", selected: true },
-    { label: "Tag3", value: "tag3", selected: false },
-    { label: "Tag4", value: "tag4", selected: false },
-    { label: "Tag5", value: "tag5", selected: true },
-    { label: "Tag6", value: "tag6", selected: false },
+    { label: "Frühstück", value: "breakfast", selected: true },
+    { label: "Salat", value: "salad", selected: true },
+    { label: "Fleisch", value: "meat", selected: false },
+    { label: "Backen", value: "baking", selected: false },
+    { label: "Vegetarisch", value: "vegetarian", selected: true },
+    { label: "Vegan", value: "vegan", selected: false },
   ];
 
-  // TODO: sort tags alphabetically among sorted vs. not sorted
-  // TODO: add nicer over effect and more textures?
   const [tags, setTags] = useState<Tag[]>(sortTags(initialTags));
 
   const handleClick = (clickedTag: Tag) => {
