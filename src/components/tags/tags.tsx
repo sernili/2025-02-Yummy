@@ -31,6 +31,7 @@ export default function TagList() {
   ];
 
   // TODO: sort tags alphabetically among sorted vs. not sorted
+  // TODO: add nicer over effect and more textures?
   const [tags, setTags] = useState<Tag[]>(sortTags(initialTags));
 
   const handleClick = (clickedTag: Tag) => {
@@ -48,10 +49,10 @@ export default function TagList() {
         <button
           key={tag.value}
           onClick={() => handleClick(tag)}
-          className={`rounded-xl border px-4 py-1.5 text-sm hover:cursor-pointer ${
+          className={`rounded-xl px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer ${
             tag.selected
-              ? "bg-primary border-primary text-white"
-              : "text-primary border-primary hover:bg-primary bg-white hover:text-white"
+              ? "bg-primary hover:bg-primary/80 text-white"
+              : "text-primary hover:bg-primary/20 bg-white hover:text-white"
           }`}
         >
           {tag.label}
