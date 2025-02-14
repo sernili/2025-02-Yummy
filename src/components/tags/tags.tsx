@@ -48,7 +48,7 @@ export default function TagList() {
           className={`rounded-xl px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer ${
             tag.selected
               ? "bg-primary hover:bg-primary/80 text-white"
-              : "text-primary hover:bg-primary/20 bg-white hover:text-white"
+              : "hover:bg-primary/20 bg-white text-black hover:text-white"
           }`}
         >
           {tag.label}
