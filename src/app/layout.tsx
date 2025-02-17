@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Roboto, Knewave, Caveat } from "next/font/google";
+import { Inter, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
 import Banner from "@components/banner";
 import Header from "@components/header";
 
 // Fonts
-const roboto = Roboto({
+const inter = Inter({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-sans",
@@ -38,11 +38,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${roboto.variable} ${knewave.variable} ${caveat.variable}`}
+      className={`${inter.variable} ${knewave.variable} ${caveat.variable}`}
     >
       <body
         className={
-          "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-hidden p-4 font-sans"
+          "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-scroll p-4 font-sans"
         }
       >
         <div className="w-full max-w-[80rem] p-4">

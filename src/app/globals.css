@@ -4,7 +4,7 @@
   --font-logo: var(--font-logo);
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
-  --breakpoint-3xl: 1920px;
   --color-primary: #607e72;
   --color-secondary: #eaedec;
+  --color-tertiary: var(--color-gray-400);
 }

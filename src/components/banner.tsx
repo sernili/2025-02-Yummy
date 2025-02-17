@@ -18,6 +18,7 @@ export default async function Banner() {
     "/list": "Einkaufsliste",
   };
 
+  // TODO: make banner image full width over the container
   return (
     <div className="relative my-4 max-h-96 overflow-hidden rounded-4xl">
       <Image
