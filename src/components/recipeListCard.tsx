@@ -18,27 +18,23 @@ export default function RecipeListCard({ recipe }: Recipe) {
         </div>
 
         <p className="text-tertiary flex gap-2">
-          {recipe.tags && (
-            <span>
-              {recipe.tags.map((tag: [], index: number, array: []) => {
-                return `${tag}${
-                  index < array.length && index != array.length - 1 ? ", " : ""
-                }`;
-              })}
-            </span>
-          )}
-
-          <span>|</span>
+          {recipe.tags?.length > 0 && <span>{recipe.tags.join(", ")}</span>}
 
           {recipe.cookingTime && (
-            <span>
-              {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
-            </span>
+            <>
+              <span>|</span>
+              <span>
+                {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
+              </span>
+            </>
           )}
 
-          <span>|</span>
-
-          {recipe.people && <span>{recipe.people + " Personen"}</span>}
+          {recipe.people && (
+            <>
+              <span>|</span>
+              <span>{recipe.people + " Personen"}</span>{" "}
+            </>
+          )}
         </p>
       </div>
     </div>

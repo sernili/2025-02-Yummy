@@ -26,7 +26,6 @@ export default function Page() {
       title: "Avocado-Toast",
       key: "avocado_toast",
       description: "Gesundes Frühstück mit Avocado und Ei.",
-      tags: ["Frühstück"],
       cookingTime: { unit: "Minuten", number: 10 },
       people: 2,
       imageURL: "https://picsum.photos/600/200",
@@ -46,7 +45,6 @@ export default function Page() {
       description: "Herzhafte Lasagne mit Gemüse und Käse.",
       tags: ["Vegetarisch"],
       cookingTime: { unit: "Minuten", number: 50 },
-      people: 6,
       imageURL: "https://picsum.photos/500/500",
     },
     {
@@ -54,7 +52,6 @@ export default function Page() {
       key: "haehnchen_curry",
       description: "Würziges Curry mit Hähnchen und Kokosmilch.",
       tags: ["Fleisch", "Indisch"],
-      cookingTime: { unit: "Minuten", number: 40 },
       people: 4,
       imageURL: "https://picsum.photos/500/400",
     },
