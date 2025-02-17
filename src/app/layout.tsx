@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
-import Banner from "../components/banner/banner";
-import Header from "../components/header/header";
+import Banner from "@components/banner";
+import Header from "@components/header";
 
 // Fonts
 const roboto = Roboto({
@@ -42,7 +42,7 @@ export default function RootLayout({
     >
       <body
         className={
-          "min-h-screen bg-secondary font-sans antialiased overflow-hidden p-4"
+          "bg-secondary min-h-screen overflow-hidden p-4 font-sans antialiased"
         }
       >
         <Header />

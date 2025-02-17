@@ -1,4 +1,4 @@
-import TagList from "../../components/tags/tags"; // TODO: find way to generalize import
+import TagList from "@components/tags"; // TODO: find way to generalize import
 
 export default function Page() {
   return (

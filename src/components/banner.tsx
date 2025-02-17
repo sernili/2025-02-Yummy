@@ -1,4 +1,4 @@
-import banner from "../../../public/banner.png";
+import banner from "@public/banner.png";
 import Image from "next/image";
 import { headers } from "next/headers";
 
