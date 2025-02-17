@@ -6,9 +6,9 @@ type TitlesMap = {
   [key: string]: string;
 };
 
-export default function Banner() {
-  const headerList = headers();
-  const pathname = headerList.get("x-current-path");
+export default async function Banner() {
+  const headerList = await headers();
+  const pathname = headerList.get("x-current-path") || "/";
 
   const titlesMap: TitlesMap = {
     "/": "Home",
