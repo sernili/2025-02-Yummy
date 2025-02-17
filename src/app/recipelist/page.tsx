@@ -35,8 +35,6 @@ export default function Page() {
       key: "griechischer_salat",
       description: "Frischer Salat mit Feta, Gurke und Oliven.",
       tags: ["Salat", "Vegetarisch"],
-      cookingTime: { unit: "Minuten", number: 15 },
-      people: 3,
       imageURL: "https://picsum.photos/500/400",
     },
     {

@@ -18,22 +18,22 @@ export default function RecipeListCard({ recipe }: Recipe) {
         </div>
 
         <p className="text-tertiary flex gap-2">
-          {recipe.tags?.length > 0 && <span>{recipe.tags.join(", ")}</span>}
+          {recipe.tags?.length > 0 && (
+            <span className="after:ml-2 after:content-['|'] last:after:content-none">
+              {recipe.tags.join(", ")}
+            </span>
+          )}
 
           {recipe.cookingTime && (
-            <>
-              <span>|</span>
-              <span>
-                {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
-              </span>
-            </>
+            <span className="after:ml-2 after:content-['|'] last:after:content-none">
+              {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
+            </span>
           )}
 
           {recipe.people && (
-            <>
-              <span>|</span>
-              <span>{recipe.people + " Personen"}</span>{" "}
-            </>
+            <span className="after:ml-2 after:content-['|'] last:after:content-none">
+              {recipe.people + " Personen"}
+            </span>
           )}
         </p>
       </div>
