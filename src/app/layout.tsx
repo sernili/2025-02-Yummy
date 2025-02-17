@@ -42,12 +42,14 @@ export default function RootLayout({
     >
       <body
         className={
-          "bg-secondary min-h-screen overflow-hidden p-4 font-sans antialiased"
+          "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-hidden p-4 font-sans"
         }
       >
-        <Header />
-        <Banner />
-        {children}
+        <div className="w-full max-w-[80rem] p-4">
+          <Header />
+          <Banner />
+          {children}
+        </div>
       </body>
     </html>
   );
