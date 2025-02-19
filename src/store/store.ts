@@ -80,7 +80,6 @@ const useStore = create<Store>()((set) => ({
       const selectedTagNames: string[] = state.tags
         .filter((tag) => tag.selected)
         .map((tag) => tag.label);
-      console.log(selectedTagNames);
 
       return {
         recipes: state.recipes.map((recipe) => ({
