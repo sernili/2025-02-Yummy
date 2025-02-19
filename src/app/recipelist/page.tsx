@@ -1,5 +1,5 @@
 import TagList from "@components/tags";
-import RecipeCardList from "../../components/recipeCardList";
+import RecipeCardList from "@components/recipeCardList";
 
 export default function Page() {
   // TODO: get selected value from localStorage

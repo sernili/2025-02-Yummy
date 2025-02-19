@@ -5,19 +5,11 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  "include": [
-    "next-env.d.ts",
-    "./build/types/**/*.ts",
-    "src"
-  ],
+  "include": ["next-env.d.ts", "./build/types/**/*.ts", "src"],
   "compilerOptions": {
     "composite": true,
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -33,24 +25,15 @@
         "name": "next"
       }
     ],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@app/*": [
-        "src/app/*"
-      ]
+      "@/*": ["src/*"],
+      "@public/*": ["public/*"],
+      "@components/*": ["src/components/*"],
+      "@app/*": ["src/app/*"],
+      "@store/*": ["src/store/*"]
     },
     "noEmit": true
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

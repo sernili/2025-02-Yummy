@@ -1,11 +1,11 @@
-import Recipe from "@app/recipelist/page";
+import { Recipe } from "@store/store";
 import Image from "next/image";
 
-export default function RecipeListCard({ recipe }: Recipe) {
+export default function RecipeListCard({ recipe }: { recipe: Recipe }) {
   return (
     <div className="flex items-center justify-start gap-10 rounded-2xl bg-white shadow-lg">
       <Image
-        src={recipe.imageURL}
+        src={recipe.imageURL || ""}
         alt="recipephoto"
         className="h-[10rem] max-w-[12rem] overflow-hidden rounded-l-2xl object-cover"
         width={300}
@@ -18,9 +18,9 @@ export default function RecipeListCard({ recipe }: Recipe) {
         </div>
 
         <p className="text-tertiary flex gap-2">
-          {recipe.tags?.length > 0 && (
+          {recipe?.tags && recipe.tags.length > 0 && (
             <span className="after:ml-2 after:content-['|'] last:after:content-none">
-              {recipe.tags.join(", ")}
+              {(recipe.tags || []).join(", ")}
             </span>
           )}
 
