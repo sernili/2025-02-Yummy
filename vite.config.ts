@@ -10,6 +10,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
       "@app": path.resolve(__dirname, "./src/app"),
       "@components": path.resolve(__dirname, "./src/components"),
+      "@store": path.resolve(__dirname, "./src/store"),
     },
   },
   plugins: [react(), tailwindcss()],
