@@ -4,11 +4,21 @@ import { useEffect } from "react";
 import useStore, { Tag } from "../store/store";
 
 export default function TagList() {
-  const { tags, getTagsFromRecipes, sortTags, updateTag } = useStore();
+  const {
+    tags,
+    getTagsFromRecipes,
+    updateRecipeDisplayOptions,
+    sortTags,
+    updateTag,
+  } = useStore();
 
   useEffect(() => {
     getTagsFromRecipes();
   }, []);
+
+  useEffect(() => {
+    updateRecipeDisplayOptions();
+  }, [tags]);
 
   const handleClick = (clickedTag: Tag) => {
     updateTag(clickedTag);

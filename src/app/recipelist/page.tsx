@@ -1,4 +1,4 @@
-import TagList from "@components/tags";
+import TagList from "@components/tagList";
 import RecipeCardList from "@components/recipeCardList";
 
 export default function Page() {

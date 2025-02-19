@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 type Store = {
   recipes: Recipe[];
+  updateRecipeDisplayOptions: () => void;
   tags: Tag[];
   getTagsFromRecipes: () => void;
   sortTags: () => void;
@@ -16,6 +17,7 @@ export type Recipe = {
   cookingTime?: { unit: string; number: number };
   people?: number;
   imageURL?: string;
+  display: boolean;
 };
 
 export type Tag = {
@@ -34,6 +36,7 @@ const useStore = create<Store>()((set) => ({
       cookingTime: { unit: "Minuten", number: 25 },
       people: 4,
       imageURL: "https://picsum.photos/500/400",
+      display: true,
     },
     {
       title: "Avocado-Toast",
@@ -42,6 +45,7 @@ const useStore = create<Store>()((set) => ({
       cookingTime: { unit: "Minuten", number: 10 },
       people: 2,
       imageURL: "https://picsum.photos/600/200",
+      display: true,
     },
     {
       title: "Griechischer Salat",
@@ -49,6 +53,8 @@ const useStore = create<Store>()((set) => ({
       description: "Frischer Salat mit Feta, Gurke und Oliven.",
       tags: ["Salat", "Vegetarisch"],
       imageURL: "https://picsum.photos/500/400",
+
+      display: true,
     },
     {
       title: "Vegetarische Lasagne",
@@ -57,6 +63,7 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegetarisch"],
       cookingTime: { unit: "Minuten", number: 50 },
       imageURL: "https://picsum.photos/500/500",
+      display: true,
     },
     {
       title: "Hähnchen-Curry",
@@ -65,8 +72,30 @@ const useStore = create<Store>()((set) => ({
       tags: ["Fleisch", "Indisch"],
       people: 4,
       imageURL: "https://picsum.photos/500/400",
+      display: true,
     },
   ],
+  updateRecipeDisplayOptions: () => {
+    set((state: Store) => {
+      const selectedTagNames: string[] = state.tags
+        .filter((tag) => tag.selected)
+        .map((tag) => tag.label);
+      console.log(selectedTagNames);
+
+      return {
+        recipes: state.recipes.map((recipe) => ({
+          ...recipe,
+          display: selectedTagNames.length
+            ? recipe.tags && recipe.tags?.length > 0
+              ? selectedTagNames.every((tagName) =>
+                  recipe.tags?.includes(tagName),
+                )
+              : false
+            : true,
+        })),
+      };
+    });
+  },
   tags: [],
   getTagsFromRecipes: () => {
     set((state: Store) => {
