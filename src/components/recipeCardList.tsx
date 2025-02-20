@@ -73,7 +73,7 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
         </>
       ) : (
         <div className="text-primary p-6 text-center">
-          No recipes to display
+          Keine Rezepte vorhanden
         </div>
       )}
     </>
