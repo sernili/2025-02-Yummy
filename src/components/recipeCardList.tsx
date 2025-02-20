@@ -36,6 +36,7 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
+    // Tipp: setState is asynchronous so don't do something right after - do it in a separate useEffect!
     setRecipesToDisplay(allRecipes.filter((recipe) => recipe.display));
   }, [allRecipes]);
 
@@ -43,35 +44,34 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
     updatePagination();
   }, [recipesToDisplay, itemOffset, itemsPerPage]);
 
-  const handlePageClick = (event) => {
+  const handlePageClick = (event: { selected: number }) => {
     const newOffset = (event.selected * itemsPerPage) % recipesToDisplay.length;
     setItemOffset(newOffset);
   };
 
   const updatePagination = () => {
-    // Compute new values before setting state
+    // Tipp: Compute new values before setting state
     const newEndOffset = itemOffset + itemsPerPage;
     const newPageCount = Math.ceil(recipesToDisplay.length / itemsPerPage);
     const shouldShowPagination = recipesToDisplay.length > itemsPerPage;
 
-    // Update state in one batch to avoid stale values
-    setRecipesForCurrPage(recipesToDisplay.slice(itemOffset, newEndOffset));
+    // Tipp: Update state in one batch to avoid stale values
+    setRecipesForCurrPage([
+      ...recipesToDisplay.slice(itemOffset, newEndOffset),
+    ]);
     setShowPagination(shouldShowPagination);
     setPageCount(newPageCount);
-
-    console.log("....................");
-
-    console.log(showPagination);
-    console.log("pagecount", pageCount);
-    console.log("to d", recipesToDisplay);
-    console.log("for c", recipesForCurrPage);
   };
 
   return (
     <>
       {recipesToDisplay.length > 0 ? (
         <>
-          <RecipeCardList recipesForCurrPage={recipesForCurrPage} />
+          {/* Tipp: always make sure to add a key to ensure update changes */}
+          <RecipeCardList
+            key={recipesForCurrPage.map((r) => r.key).join(",")}
+            recipesForCurrPage={recipesForCurrPage}
+          />
           {showPagination && (
             <ReactPaginate
               breakLabel="..."
