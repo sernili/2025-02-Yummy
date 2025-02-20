@@ -11,6 +11,8 @@ export default function RecipeCardList({
 }: {
   recipesForCurrPage: Recipe[];
 }) {
+  console.log("comp: ", recipesForCurrPage);
+
   return (
     <>
       {recipesForCurrPage.map(
@@ -26,58 +28,47 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>([]);
   const [recipesForCurrPage, setRecipesForCurrPage] = useState<Recipe[]>([]);
-
-  const [showPagination, setShowPagination] = useState(true);
   const [itemOffset, setItemOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
-    // Tipp: setState is asynchronous so don't do something right after - do it in a separate useEffect!
     setRecipesToDisplay(allRecipes.filter((recipe) => recipe.display));
   }, [allRecipes]);
 
   useEffect(() => {
-    updatePagination();
+    setItemOffset(0);
+  }, [recipesToDisplay]);
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    setRecipesForCurrPage([...recipesToDisplay.slice(itemOffset, endOffset)]);
   }, [recipesToDisplay, itemOffset, itemsPerPage]);
 
-  const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % recipesToDisplay.length;
-    setItemOffset(newOffset);
-  };
-
-  const updatePagination = () => {
-    // Tipp: Compute new values before setting state
-    const newEndOffset = itemOffset + itemsPerPage;
+  useEffect(() => {
     const newPageCount = Math.ceil(recipesToDisplay.length / itemsPerPage);
-    const shouldShowPagination = recipesToDisplay.length > itemsPerPage;
-
-    // Tipp: Update state in one batch to avoid stale values
-    setRecipesForCurrPage([
-      ...recipesToDisplay.slice(itemOffset, newEndOffset),
-    ]);
-    setShowPagination(shouldShowPagination);
     setPageCount(newPageCount);
+  }, [recipesToDisplay.length, itemsPerPage]);
+
+  const handlePageClick = (event: { selected: number }) => {
+    setItemOffset((event.selected * itemsPerPage) % recipesToDisplay.length);
   };
 
   return (
     <>
       {recipesToDisplay.length > 0 ? (
         <>
-          {/* Tipp: always make sure to add a key to ensure update changes */}
           <RecipeCardList
-            key={recipesForCurrPage.map((r) => r.key).join(",")}
+            key="recipe-card-list"
             recipesForCurrPage={recipesForCurrPage}
           />
-          {showPagination && (
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={5}
-              pageCount={pageCount}
-              previousLabel="<"
-            />
-          )}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel="<"
+          />
         </>
       ) : (
         <div className="text-primary p-6 text-center">
