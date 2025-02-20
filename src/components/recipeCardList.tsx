@@ -16,9 +16,12 @@ export default function RecipeCardList() {
   return (
     <>
       {recipesToDisplay ? (
-        recipes.map((recipe) => {
-          return recipe.display && <RecipeListCard recipe={recipe} />;
-        })
+        recipes.map(
+          (recipe) =>
+            recipe.display && (
+              <RecipeListCard key={recipe.key} recipe={recipe} />
+            ),
+        )
       ) : (
         <div className="text-primary p-6 text-center">
           No recipes to display
