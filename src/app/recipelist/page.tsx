@@ -1,5 +1,6 @@
 import TagList from "@components/tagList";
 import RecipeCardList from "@components/recipeCardList";
+import { PaginatedItems } from "@components/recipeCardList";
 
 export default function Page() {
   // TODO: get selected value from localStorage
@@ -11,7 +12,7 @@ export default function Page() {
       <TagList />
 
       <div className="space-y-6">
-        <RecipeCardList />
+        <PaginatedItems itemsPerPage={4} />
       </div>
     </div>
   );
