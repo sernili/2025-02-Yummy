@@ -11,10 +11,6 @@ export default function RecipeCardList({
 }: {
   recipesForCurrPage: Recipe[];
 }) {
-  useEffect(() => {
-    console.log("comp", recipesForCurrPage);
-  }, [recipesForCurrPage]);
-
   return (
     <>
       {recipesForCurrPage.map(
