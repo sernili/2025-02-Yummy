@@ -77,21 +77,33 @@ const useStore = create<Store>()((set) => ({
   ],
   updateRecipeDisplayOptions: () => {
     set((state: Store) => {
+      // Get selected tag names
       const selectedTagNames: string[] = state.tags
         .filter((tag) => tag.selected)
         .map((tag) => tag.label);
 
+      // Update display property of recipes
+      const recipes: Recipe[] = state.recipes.map((recipe) => ({
+        ...recipe,
+        display:
+          selectedTagNames.length === 0 ||
+          (!!recipe.tags &&
+            recipe.tags?.length > 0 &&
+            selectedTagNames.every((tagName) =>
+              recipe.tags?.includes(tagName),
+            )),
+      }));
+
+      // Sort recipes alphabetically
+      recipes.sort((a, b) => a.title.localeCompare(b.title));
+
+      // Sort recipe tags alphabetically
+      recipes.forEach((recipe) => {
+        recipe.tags?.sort((a, b) => a.localeCompare(b));
+      });
+
       return {
-        recipes: state.recipes.map((recipe) => ({
-          ...recipe,
-          display: selectedTagNames.length
-            ? recipe.tags && recipe.tags?.length > 0
-              ? selectedTagNames.every((tagName) =>
-                  recipe.tags?.includes(tagName),
-                )
-              : false
-            : true,
-        })),
+        recipes: recipes,
       };
     });
   },
