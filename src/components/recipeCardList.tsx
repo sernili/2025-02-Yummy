@@ -34,7 +34,6 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
   const [showPagination, setShowPagination] = useState(true);
   const [itemOffset, setItemOffset] = useState(0);
   const [pageCount, setPageCount] = useState(0);
-  const [endOffset, setEndOffset] = useState(0);
 
   useEffect(() => {
     setRecipesToDisplay(allRecipes.filter((recipe) => recipe.display));
@@ -42,27 +41,28 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
 
   useEffect(() => {
     updatePagination();
-  }, [recipesToDisplay, itemOffset]);
+  }, [recipesToDisplay, itemOffset, itemsPerPage]);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % recipesToDisplay.length;
-    console.log("event", event.selected);
-
     setItemOffset(newOffset);
   };
 
   const updatePagination = () => {
-    console.log("updatePagination --------");
+    // Compute new values before setting state
+    const newEndOffset = itemOffset + itemsPerPage;
+    const newPageCount = Math.ceil(recipesToDisplay.length / itemsPerPage);
+    const shouldShowPagination = recipesToDisplay.length > itemsPerPage;
 
-    setShowPagination(recipesToDisplay.length > itemsPerPage);
-    setRecipesForCurrPage(recipesToDisplay.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(recipesToDisplay.length / itemsPerPage));
-    setEndOffset(itemOffset + itemsPerPage);
+    // Update state in one batch to avoid stale values
+    setRecipesForCurrPage(recipesToDisplay.slice(itemOffset, newEndOffset));
+    setShowPagination(shouldShowPagination);
+    setPageCount(newPageCount);
 
-    // console.log("pagecount", pageCount);
+    console.log("....................");
 
-    // console.log(showPagination);
-    console.log(allRecipes);
+    console.log(showPagination);
+    console.log("pagecount", pageCount);
     console.log("to d", recipesToDisplay);
     console.log("for c", recipesForCurrPage);
   };
