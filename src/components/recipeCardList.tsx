@@ -68,7 +68,7 @@ export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
             pageRangeDisplayed={5}
             pageCount={pageCount}
             previousLabel="<"
-            className="text-primary *:[&.disabled]:text-tertiary my-16 flex w-full items-center justify-center gap-8 text-center *:cursor-pointer *:[&.disabled]:cursor-default *:[&.selected]:border-b"
+            className="text-primary *:[&.disabled]:text-tertiary *:not my-16 flex w-full items-center justify-center gap-8 text-center *:cursor-pointer *:not-[&.disabled]:hover:border-b *:[&.disabled]:cursor-default *:[&.selected]:border-b"
           />
         </>
       ) : (
