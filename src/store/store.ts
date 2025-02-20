@@ -51,7 +51,7 @@ const useStore = create<Store>()((set) => ({
       title: "Griechischer Salat",
       key: "griechischer_salat",
       description: "Frischer Salat mit Feta, Gurke und Oliven.",
-      tags: ["Salat", "Vegetarisch"],
+      tags: ["Salat", "Vegetarisch", "Gesund"],
       imageURL: "https://picsum.photos/500/400",
 
       display: true,
@@ -98,7 +98,7 @@ const useStore = create<Store>()((set) => ({
       title: "Minestrone",
       key: "minestrone",
       description: "Italienische Gemüsesuppe mit Nudeln.",
-      tags: ["Vegetarisch", "Suppe"],
+      tags: ["Vegetarisch", "Suppe", "Gesund"],
       cookingTime: { unit: "Minuten", number: 40 },
       people: 4,
       imageURL: "https://picsum.photos/500/400",
@@ -148,7 +148,7 @@ const useStore = create<Store>()((set) => ({
       title: "Falafel mit Joghurt-Dip",
       key: "falafel_joghurt_dip",
       description: "Knusprige Falafel mit cremigem Joghurt-Dip.",
-      tags: ["Vegetarisch", "Orientalisch"],
+      tags: ["Vegetarisch", "Orientalisch", "Gesund"],
       cookingTime: { unit: "Minuten", number: 35 },
       people: 4,
       imageURL: "https://picsum.photos/500/400",
@@ -168,7 +168,7 @@ const useStore = create<Store>()((set) => ({
       title: "Kichererbsen-Curry",
       key: "kichererbsen_curry",
       description: "Würziges Curry mit Kichererbsen und Tomaten.",
-      tags: ["Vegan", "Indisch"],
+      tags: ["Vegan", "Indisch", "Gesund"],
       cookingTime: { unit: "Minuten", number: 30 },
       people: 3,
       imageURL: "https://picsum.photos/500/400",
@@ -182,8 +182,6 @@ const useStore = create<Store>()((set) => ({
         .filter((tag) => tag.selected)
         .map((tag) => tag.label);
 
-      console.log("selectedTagNames", selectedTagNames);
-
       // Update display property of recipes
       const newRecipes: Recipe[] = state.recipes.map((recipe) => ({
         ...recipe,
@@ -191,12 +189,9 @@ const useStore = create<Store>()((set) => ({
           selectedTagNames.length === 0 ||
           (!!recipe.tags &&
             recipe.tags?.length > 0 &&
-            selectedTagNames.every((tagName) => {
-              console.log(
-                `Checking if "${recipe.tags}" includes tag: ${tagName}`,
-              );
-              return recipe.tags?.includes(tagName);
-            })),
+            selectedTagNames.every((tagName) =>
+              recipe.tags?.includes(tagName),
+            )),
       }));
 
       // Sort recipes alphabetically
