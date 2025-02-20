@@ -7,13 +7,17 @@ import { Recipe } from "@store/store";
 import ReactPaginate from "react-paginate";
 
 export default function RecipeCardList({
-  recipesForCurrentPage,
+  recipesForCurrPage,
 }: {
-  recipesForCurrentPage: Recipe[];
+  recipesForCurrPage: Recipe[];
 }) {
+  useEffect(() => {
+    console.log("comp", recipesForCurrPage);
+  }, [recipesForCurrPage]);
+
   return (
     <>
-      {recipesForCurrentPage.map(
+      {recipesForCurrPage.map(
         (recipe) =>
           recipe.display && <RecipeListCard key={recipe.key} recipe={recipe} />,
       )}
@@ -22,41 +26,62 @@ export default function RecipeCardList({
 }
 
 export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
-  const { recipes } = useStore();
+  const { recipes: allRecipes } = useStore();
 
+  const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>([]);
+  const [recipesForCurrPage, setRecipesForCurrPage] = useState<Recipe[]>([]);
+
+  const [showPagination, setShowPagination] = useState(true);
   const [itemOffset, setItemOffset] = useState(0);
-  const [hasRecipesToDisplay, setHasRecipesToDisplay] = useState<Boolean>(true);
-
-  const endOffset = itemOffset + itemsPerPage;
-  const recipesForCurrentPage = recipes.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(recipes.length / itemsPerPage);
+  const [pageCount, setPageCount] = useState(0);
+  const [endOffset, setEndOffset] = useState(0);
 
   useEffect(() => {
-    checkHasRecipesToDisplay();
-  }, [recipes]);
+    setRecipesToDisplay(allRecipes.filter((recipe) => recipe.display));
+  }, [allRecipes]);
+
+  useEffect(() => {
+    updatePagination();
+  }, [recipesToDisplay, itemOffset]);
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % recipes.length;
+    const newOffset = (event.selected * itemsPerPage) % recipesToDisplay.length;
+    console.log("event", event.selected);
+
     setItemOffset(newOffset);
   };
 
-  const checkHasRecipesToDisplay = () =>
-    setHasRecipesToDisplay(recipes.some((recipe) => recipe.display));
+  const updatePagination = () => {
+    console.log("updatePagination --------");
+
+    setShowPagination(recipesToDisplay.length > itemsPerPage);
+    setRecipesForCurrPage(recipesToDisplay.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(recipesToDisplay.length / itemsPerPage));
+    setEndOffset(itemOffset + itemsPerPage);
+
+    // console.log("pagecount", pageCount);
+
+    // console.log(showPagination);
+    console.log(allRecipes);
+    console.log("to d", recipesToDisplay);
+    console.log("for c", recipesForCurrPage);
+  };
 
   return (
     <>
-      {hasRecipesToDisplay ? (
+      {recipesToDisplay.length > 0 ? (
         <>
-          <RecipeCardList recipesForCurrentPage={recipesForCurrentPage} />
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-          />
+          <RecipeCardList recipesForCurrPage={recipesForCurrPage} />
+          {showPagination && (
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={pageCount}
+              previousLabel="<"
+            />
+          )}
         </>
       ) : (
         <div className="text-primary p-6 text-center">

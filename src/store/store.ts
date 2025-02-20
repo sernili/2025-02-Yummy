@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 type Store = {
   recipes: Recipe[];
-  updateRecipeDisplayOptions: () => void;
+  updateRecipeDisplaySettings: () => void;
   tags: Tag[];
   getTagsFromRecipes: () => void;
   sortTags: () => void;
@@ -175,35 +175,40 @@ const useStore = create<Store>()((set) => ({
       display: true,
     },
   ],
-  updateRecipeDisplayOptions: () => {
+  updateRecipeDisplaySettings: () => {
     set((state: Store) => {
       // Get selected tag names
       const selectedTagNames: string[] = state.tags
         .filter((tag) => tag.selected)
         .map((tag) => tag.label);
 
+      console.log("selectedTagNames", selectedTagNames);
+
       // Update display property of recipes
-      const recipes: Recipe[] = state.recipes.map((recipe) => ({
+      const newRecipes: Recipe[] = state.recipes.map((recipe) => ({
         ...recipe,
         display:
           selectedTagNames.length === 0 ||
           (!!recipe.tags &&
             recipe.tags?.length > 0 &&
-            selectedTagNames.every((tagName) =>
-              recipe.tags?.includes(tagName),
-            )),
+            selectedTagNames.every((tagName) => {
+              console.log(
+                `Checking if "${recipe.tags}" includes tag: ${tagName}`,
+              );
+              return recipe.tags?.includes(tagName);
+            })),
       }));
 
       // Sort recipes alphabetically
-      recipes.sort((a, b) => a.title.localeCompare(b.title));
+      newRecipes.sort((a, b) => a.title.localeCompare(b.title));
 
       // Sort recipe tags alphabetically
-      recipes.forEach((recipe) => {
+      newRecipes.forEach((recipe) => {
         recipe.tags?.sort((a, b) => a.localeCompare(b));
       });
 
       return {
-        recipes: recipes,
+        recipes: newRecipes,
       };
     });
   },

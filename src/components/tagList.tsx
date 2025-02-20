@@ -7,7 +7,7 @@ export default function TagList() {
   const {
     tags,
     getTagsFromRecipes,
-    updateRecipeDisplayOptions,
+    updateRecipeDisplaySettings,
     sortTags,
     updateTag,
   } = useStore();
@@ -17,7 +17,7 @@ export default function TagList() {
   }, []);
 
   useEffect(() => {
-    updateRecipeDisplayOptions();
+    updateRecipeDisplaySettings();
   }, [tags]);
 
   const handleClick = (clickedTag: Tag) => {
