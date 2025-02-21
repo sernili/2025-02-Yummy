@@ -1,4 +1,4 @@
-import { Recipe } from "@store/store";
+import { Recipe } from "@/store/recipes";
 import Image from "next/image";
 
 export default function RecipeListCard({ recipe }: { recipe: Recipe }) {

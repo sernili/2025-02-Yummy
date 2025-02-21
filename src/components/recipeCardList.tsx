@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import useStore from "../store/store";
+import useStore from "../store/recipes";
 import RecipeListCard from "./recipeListCard";
-import { Recipe } from "@store/store";
+import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 
 export default function RecipeCardList({

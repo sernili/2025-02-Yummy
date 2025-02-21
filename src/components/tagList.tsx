@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import useStore, { Tag } from "../store/store";
+import useStore, { Tag } from "../store/recipes";
 
 export default function TagList() {
   const {
