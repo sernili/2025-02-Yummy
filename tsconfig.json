@@ -5,11 +5,20 @@
       "path": "./tsconfig.app.json"
     }
   ],
-  "include": ["next-env.d.ts", "./build/types/**/*.ts", "src"],
+  "include": [
+    "./build/types/**/*.ts",
+    "next-env.d.ts",
+    "src",
+    ".next/types/**/*.ts"
+  ],
   "compilerOptions": {
     "composite": true,
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -27,13 +36,25 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@public/*": ["public/*"],
-      "@components/*": ["src/components/*"],
-      "@app/*": ["src/app/*"],
-      "@store/*": ["src/store/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ]
     },
     "noEmit": true
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

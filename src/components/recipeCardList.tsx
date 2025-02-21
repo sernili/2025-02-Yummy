@@ -11,19 +11,21 @@ export default function RecipeCardList({
 }: {
   recipesForCurrPage: Recipe[];
 }) {
-  console.log("comp: ", recipesForCurrPage);
-
   return (
-    <>
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {recipesForCurrPage.map(
         (recipe) =>
           recipe.display && <RecipeListCard key={recipe.key} recipe={recipe} />,
       )}
-    </>
+    </div>
   );
 }
 
-export function PaginatedItems({ itemsPerPage }: { itemsPerPage: number }) {
+export function PaginatedRecipeList({
+  itemsPerPage,
+}: {
+  itemsPerPage: number;
+}) {
   const { recipes: allRecipes } = useStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>([]);
