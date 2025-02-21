@@ -9,7 +9,7 @@ export default function Page() {
       <TagList />
 
       <div className="space-y-6">
-        <PaginatedRecipeList itemsPerPage={4} />
+        <PaginatedRecipeList itemsPerPage={6} />
       </div>
     </div>
   );

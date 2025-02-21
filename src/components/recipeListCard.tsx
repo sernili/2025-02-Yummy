@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function RecipeListCard({ recipe }: { recipe: Recipe }) {
   return (
-    <div className="flex h-full min-h-[20rem] items-stretch justify-start gap-10 rounded-2xl bg-white shadow-lg md:flex-col md:gap-0">
+    <div className="h-fullh-full flex min-h-[20rem] items-stretch justify-start gap-10 rounded-2xl bg-white shadow-lg md:min-h-full md:flex-col md:gap-0">
       <div className="h-full w-[12rem] md:h-[20rem] md:w-full">
         <Image
           src={recipe.imageURL || ""}
@@ -23,7 +23,7 @@ export default function RecipeListCard({ recipe }: { recipe: Recipe }) {
         <p className="text-tertiary flex gap-2 text-xs">
           {recipe?.tags && recipe.tags.length > 0 && (
             <span
-              className="relative inline-block max-w-[33%] overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
+              className="relative inline-block w-fit min-w-0 overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
               title={(recipe.tags || []).join(", ")}
             >
               {(recipe.tags || []).join(", ")}
@@ -31,13 +31,13 @@ export default function RecipeListCard({ recipe }: { recipe: Recipe }) {
           )}
 
           {recipe.cookingTime && (
-            <span className="after:ml-2 after:content-['|'] last:after:content-none">
+            <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
               {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
             </span>
           )}
 
           {recipe.people && (
-            <span className="after:ml-2 after:content-['|'] last:after:content-none">
+            <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
               {recipe.people + " Personen"}
             </span>
           )}
