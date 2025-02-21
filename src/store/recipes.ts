@@ -35,7 +35,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Fleisch", "Salat"],
       cookingTime: { unit: "Minuten", number: 25 },
       people: 4,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1546549032-9571cd6b27df?q=80&w=3035&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       display: true,
     },
     {
@@ -44,7 +45,8 @@ const useStore = create<Store>()((set) => ({
       description: "Gesundes Frühstück mit Avocado und Ei.",
       cookingTime: { unit: "Minuten", number: 10 },
       people: 2,
-      imageURL: "https://picsum.photos/600/200",
+      imageURL:
+        "https://images.unsplash.com/photo-1603046891726-36bfd957e0bf?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZvY2FkbyUyMHRvYXN0fGVufDB8fDB8fHww",
       display: true,
     },
     {
@@ -52,8 +54,8 @@ const useStore = create<Store>()((set) => ({
       key: "griechischer_salat",
       description: "Frischer Salat mit Feta, Gurke und Oliven.",
       tags: ["Salat", "Vegetarisch", "Gesund"],
-      imageURL: "https://picsum.photos/500/400",
-
+      imageURL:
+        "https://images.unsplash.com/photo-1599021419847-d8a7a6aba5b4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Z3JpZWNoaXNjaGVyJTIwc2FsYXR8ZW58MHx8MHx8fDA%3D",
       display: true,
     },
     {
@@ -62,7 +64,8 @@ const useStore = create<Store>()((set) => ({
       description: "Herzhafte Lasagne mit Gemüse und Käse.",
       tags: ["Vegetarisch"],
       cookingTime: { unit: "Minuten", number: 50 },
-      imageURL: "https://picsum.photos/500/500",
+      imageURL:
+        "https://images.unsplash.com/photo-1619895092538-128341789043?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFzYWduZXxlbnwwfHwwfHx8MA%3D%3D",
       display: true,
     },
     {
@@ -71,7 +74,8 @@ const useStore = create<Store>()((set) => ({
       description: "Würziges Curry mit Hähnchen und Kokosmilch.",
       tags: ["Fleisch", "Indisch"],
       people: 4,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1618449840665-9ed506d73a34?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       display: true,
     },
     {
@@ -81,7 +85,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegetarisch", "Schnell", "Gesund"],
       cookingTime: { unit: "Minuten", number: 15 },
       people: 2,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       display: true,
     },
     {
@@ -91,7 +96,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Fleisch", "Grillen"],
       cookingTime: { unit: "Minuten", number: 30 },
       people: 2,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1625937329935-287441889bce?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVlZnN0ZWFrfGVufDB8fDB8fHww",
       display: true,
     },
     {
@@ -101,7 +107,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegetarisch", "Suppe", "Gesund"],
       cookingTime: { unit: "Minuten", number: 40 },
       people: 4,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWluZXN0cm9uZXxlbnwwfHwwfHx8MA%3D%3D",
       display: true,
     },
     {
@@ -111,7 +118,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Fisch", "Gesund"],
       cookingTime: { unit: "Minuten", number: 25 },
       people: 3,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1560717845-968823efbee1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c2FsbW9ufGVufDB8fDB8fHww",
       display: true,
     },
     {
@@ -121,7 +129,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegan", "Gesund"],
       cookingTime: { unit: "Minuten", number: 20 },
       people: 2,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://plus.unsplash.com/premium_photo-1705003210245-41b4773b5bb5?q=80&w=3176&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       display: true,
     },
     {
@@ -131,7 +140,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Fleisch", "Grillen"],
       cookingTime: { unit: "Minuten", number: 45 },
       people: 4,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1524114664604-cd8133cd67ad?q=80&w=1984&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       display: true,
     },
     {
@@ -141,7 +151,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Süß", "Frühstück"],
       cookingTime: { unit: "Minuten", number: 20 },
       people: 3,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1587339144367-f1cacbecac82?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGFuY2FrZXN8ZW58MHx8MHx8fDA%3D",
       display: true,
     },
     {
@@ -151,7 +162,19 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegetarisch", "Orientalisch", "Gesund"],
       cookingTime: { unit: "Minuten", number: 35 },
       people: 4,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://images.unsplash.com/photo-1547058881-aa0edd92aab3?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFsYWZlbHxlbnwwfHwwfHx8MA%3D%3D",
+      display: true,
+    },
+    {
+      title: "Ratatouille",
+      key: "ratatouille",
+      description: "Französisches Gemüsegericht mit Auberginen und Tomaten.",
+      tags: ["Vegetarisch", "Gesund"],
+      cookingTime: { unit: "Minuten", number: 45 },
+      people: 4,
+      imageURL:
+        "https://plus.unsplash.com/premium_photo-1713635953474-b74990274152?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cmF0YXRvdWlsbGV8ZW58MHx8MHx8fDA%3D",
       display: true,
     },
     {
@@ -161,7 +184,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Süß", "Getränk"],
       cookingTime: { unit: "Minuten", number: 5 },
       people: 1,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://plus.unsplash.com/premium_photo-1663853293850-6099a76d4c51?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hvY29sYXRlJTIwc21vb3RoaWV8ZW58MHx8MHx8fDA%3D",
       display: true,
     },
     {
@@ -171,7 +195,8 @@ const useStore = create<Store>()((set) => ({
       tags: ["Vegan", "Indisch", "Gesund"],
       cookingTime: { unit: "Minuten", number: 30 },
       people: 3,
-      imageURL: "https://picsum.photos/500/400",
+      imageURL:
+        "https://plus.unsplash.com/premium_photo-1695456064603-aa7568121827?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2twZWElMjBjdXJyeXxlbnwwfHwwfHx8MA%3D%3D",
       display: true,
     },
   ],
