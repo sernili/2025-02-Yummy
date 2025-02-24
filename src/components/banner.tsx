@@ -18,7 +18,6 @@ export default async function Banner() {
     "/list": "Einkaufsliste",
   };
 
-  // TODO: make banner image full width over the container
   return (
     <div className="relative my-4 max-h-96 overflow-hidden rounded-4xl">
       <Image
@@ -27,7 +26,7 @@ export default async function Banner() {
         className="max-h-96 w-full overflow-hidden rounded-4xl object-cover object-center"
         priority
       />
-      <h1 className="absolute bottom-6 left-6 font-serif text-9xl text-white">
+      <h1 className="absolute bottom-[min(.05rem,_8%)] left-[min(1rem,_8%)] font-serif text-[clamp(3rem,_12vw,_10rem)] text-white">
         {titlesMap[pathname]}
       </h1>
     </div>

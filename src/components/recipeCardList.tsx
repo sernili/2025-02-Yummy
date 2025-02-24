@@ -12,11 +12,15 @@ export default function RecipeCardList({
   recipesForCurrPage: Recipe[];
 }) {
   return (
-    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {recipesForCurrPage.map(
-        (recipe) =>
-          recipe.display && <RecipeListCard key={recipe.key} recipe={recipe} />,
-      )}
+    <div className="w-full overflow-scroll">
+      <div className="grid auto-rows-[1fr] grid-cols-[repeat(auto-fill,_minmax(min(20rem,100%),_1fr))] gap-6">
+        {recipesForCurrPage.map(
+          (recipe) =>
+            recipe.display && (
+              <RecipeListCard key={recipe.key} recipe={recipe} />
+            ),
+        )}
+      </div>
     </div>
   );
 }
