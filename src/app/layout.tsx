@@ -3,6 +3,7 @@ import { Inter, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
 import Banner from "@components/banner";
 import Header from "@components/header";
+import Footer from "@/components/footer";
 
 // Fonts
 const inter = Inter({
@@ -42,14 +43,15 @@ export default function RootLayout({
     >
       <body
         className={
-          "bg-secondary p-[min(1rem, 8%)] m-0 flex min-h-screen flex-col items-center justify-center overflow-scroll font-sans"
+          "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-scroll font-sans"
         }
       >
-        <div className="w-full max-w-[80rem] p-4">
+        <div className="p-[min(1rem, 8%)] w-full max-w-[80rem]">
           <Header />
           <Banner />
           {children}
         </div>
+        <Footer />
       </body>
     </html>
   );
