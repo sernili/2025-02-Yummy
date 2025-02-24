@@ -46,7 +46,7 @@ export default function RootLayout({
           "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-scroll font-sans"
         }
       >
-        <div className="p-[min(1rem, 8%)] w-full max-w-[80rem]">
+        <div className="h-fit w-full max-w-[80rem] p-[min(1rem,_8%)]">
           <Header />
           <Banner />
           {children}
