@@ -41,7 +41,8 @@ export function PaginatedRecipeList({
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
   const defaultItemOffset = 0;
-  const getPageCount = () => Math.ceil(recipesToDisplay.length / itemsPerPage);
+  const getPageCount = (newRecipesToDisplay: Recipe[] = recipesToDisplay) =>
+    Math.ceil(newRecipesToDisplay.length / itemsPerPage);
 
   // Recipe Info ----------------------------------------------
   const { recipes: allRecipes } = useStore();
@@ -72,19 +73,14 @@ export function PaginatedRecipeList({
   // Update URL parameters when local state changes (with debounce)
   useEffect(() => {
     const newItemOffset = defaultItemOffset;
-    const newEndOffset = newItemOffset + itemsPerPage; // Todo: variable?
-    const newPageCount = getPageCount();
+    const newEndOffset = newItemOffset + itemsPerPage;
+
     const newRecipesToDisplay = getRecipesToDisplay();
 
-    setPageCount(newPageCount.toString());
-    setItemOffset(defaultItemOffset.toString());
+    const newPageCount = getPageCount(newRecipesToDisplay);
 
-    console.log("recipesForCurrPage", recipesForCurrPage);
-    console.log("NEWrecipesToDisplay", newRecipesToDisplay);
-    console.log(
-      "NEWrecipesForCurrPage",
-      getRecipesForCurrPage(newItemOffset, newEndOffset, newRecipesToDisplay),
-    );
+    setItemOffset(newItemOffset.toString());
+    setPageCount(newPageCount.toString());
 
     setRecipesToDisplay(newRecipesToDisplay);
     setRecipesForCurrPage(
