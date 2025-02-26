@@ -70,7 +70,7 @@ export function PaginatedRecipeList({
     setItemOffset(filters.itemOffset);
   }, [filters]);
 
-  // Update URL parameters when local state changes (with debounce)
+  // Update local state when allRecipes changes
   useEffect(() => {
     const newItemOffset = defaultItemOffset;
     const newEndOffset = newItemOffset + itemsPerPage;
@@ -88,6 +88,7 @@ export function PaginatedRecipeList({
     );
   }, [allRecipes]);
 
+  // Update URL parameters when local state changes (with debounce)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setFilters({ selectedTags, pageCount, itemOffset });
