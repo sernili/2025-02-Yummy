@@ -36,7 +36,7 @@ export function PaginatedRecipeList({
   // Filter and Pagination Info ----------------------------------------------
   const { filters, setFilters } = useRecipeFilters();
 
-  const [selectedTags, setSelectedTags] = useState(filters.selectedTags);
+  const [selectedTags] = useState(filters.selectedTags);
   const [pageCount, setPageCount] = useState(filters.pageCount);
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
@@ -65,14 +65,13 @@ export function PaginatedRecipeList({
   // Side Effects ----------------------------------------------
   // Sync local state with URL parameters on initial load
   useEffect(() => {
-    setSelectedTags(filters.selectedTags);
     setPageCount(filters.pageCount);
     setItemOffset(filters.itemOffset);
   }, [filters]);
 
   // Update local state when allRecipes changes
   useEffect(() => {
-    const newItemOffset = defaultItemOffset;
+    const newItemOffset = defaultItemOffset; // TODO: not always right
     const newEndOffset = newItemOffset + itemsPerPage;
 
     const newRecipesToDisplay = getRecipesToDisplay();
