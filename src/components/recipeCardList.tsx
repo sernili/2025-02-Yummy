@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import useStore from "../store/recipes";
 import RecipeListCard from "./recipeListCard";
 import { Recipe } from "@/store/recipes";
@@ -12,8 +12,6 @@ export default function RecipeCardList({
 }: {
   recipesForCurrPage: Recipe[];
 }) {
-  console.log("Comp", recipesForCurrPage);
-
   return (
     <div className="w-full overflow-scroll">
       <div className="grid auto-rows-[1fr] grid-cols-[repeat(auto-fill,_minmax(min(20rem,100%),_1fr))] gap-6">
@@ -40,6 +38,18 @@ export function PaginatedRecipeList({
   const getPageCount = (newRecipesToDisplay: Recipe[]) =>
     Math.ceil(newRecipesToDisplay.length / itemsPerPage);
 
+  const getSortedRecipes = (recipes: Recipe[]) => {
+    // Sort recipes alphabetically
+    recipes.sort((a, b) => a.title.localeCompare(b.title));
+
+    // Sort recipe tags alphabetically
+    recipes.forEach((recipe) => {
+      recipe.tags?.sort((a, b) => a.localeCompare(b));
+    });
+
+    return recipes;
+  };
+
   const getRecipesToDisplay = (allRecipes: Recipe[]) =>
     allRecipes.filter((recipe) => recipe.display);
 
@@ -51,10 +61,10 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes } = useStore();
+  const { recipes: allRecipes, updateRecipeDisplaySettings } = useStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
-    getRecipesToDisplay(allRecipes),
+    getRecipesToDisplay(getSortedRecipes(allRecipes)),
   );
   const [recipesForCurrPage, setRecipesForCurrPage] = useState<Recipe[]>([]);
 
@@ -66,18 +76,21 @@ export function PaginatedRecipeList({
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
   const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
+  const prevSelectedTags = useRef(selectedTags);
 
   // Side Effects ----------------------------------------------
 
-  // TODO: sort recipes alphabetically agains
+  useEffect(() => {
+    updatePaginationLogic(Number(itemOffset));
+  }, []);
 
   useEffect(() => {
-    updatePaginationLogic(Number(filters.itemOffset));
-  }, [filters]);
-
-  useEffect(() => {
-    updatePaginationLogic(DEFAULT_ITEM_OFFSET);
-  }, [allRecipes]);
+    // deep compare selectedTags to keep initial itemOffset when selectedTags change initially
+    if (selectedTags !== prevSelectedTags.current) {
+      updatePaginationLogic(DEFAULT_ITEM_OFFSET);
+      prevSelectedTags.current = selectedTags;
+    }
+  }, [selectedTags]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -99,16 +112,26 @@ export function PaginatedRecipeList({
   };
 
   const updatePaginationLogic = (newItemOffset: number) => {
-    const newEndOffset = newItemOffset + itemsPerPage;
     const newRecipesToDisplay = getRecipesToDisplay(allRecipes);
+
     const newPageCount = getPageCount(newRecipesToDisplay);
+    const maxItemOffset = newPageCount - 1;
+
+    const correctedItemOffset =
+      newItemOffset > maxItemOffset ? maxItemOffset : newItemOffset;
+
+    const newEndOffset = correctedItemOffset + itemsPerPage;
+
     const newRecipesForCurrPage = getRecipesForCurrPage(
-      newItemOffset,
+      correctedItemOffset,
       newEndOffset,
       newRecipesToDisplay,
     );
 
-    setItemOffset(newItemOffset.toString());
+    console.log(newPageCount);
+    console.log(correctedItemOffset);
+
+    setItemOffset(correctedItemOffset.toString());
     setPageCount(newPageCount);
     setRecipesToDisplay(newRecipesToDisplay);
     setRecipesForCurrPage(newRecipesForCurrPage);
@@ -127,6 +150,7 @@ export function PaginatedRecipeList({
             nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
+            initialPage={Number(itemOffset)}
             pageCount={pageCount}
             previousLabel="<"
             className="text-primary *:[&.disabled]:text-tertiary *:not my-16 flex w-full items-center justify-center gap-8 text-center *:cursor-pointer *:not-[&.disabled]:hover:border-b *:[&.disabled]:cursor-default *:[&.selected]:border-b"
