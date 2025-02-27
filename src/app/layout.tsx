@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
-import Banner from "@components/banner";
-import Header from "@components/header";
-import Footer from "@/components/footer";
+import Banner from "@/components/global/banner";
+import Header from "@components/global/header";
+import Footer from "@/components/global/footer";
 
 // Fonts
 const inter = Inter({

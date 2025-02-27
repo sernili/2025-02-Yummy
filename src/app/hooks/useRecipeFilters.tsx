@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 
 export type RecipeFilters = {
-  selectedTags: string;
+  // selectedTags: string;
   itemOffset: string;
 };
 
@@ -15,7 +15,7 @@ const useRecipeFilters = () => {
 
   const filters = useMemo(
     () => ({
-      selectedTags: searchParams.get("selectedTags") || "",
+      // selectedTags: searchParams.get("selectedTags") || "",
       itemOffset: searchParams.get("itemOffset") || "0",
     }),
     [searchParams],

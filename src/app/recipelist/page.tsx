@@ -1,5 +1,5 @@
-import TagList from "@components/tagList";
-import { PaginatedRecipeList } from "@components/recipeCardList";
+import { PaginatedRecipeList } from "@/components/recipelist/paginatedList";
+import TagList from "@/components/recipelist/tagList";
 
 export default function Page() {
   // TODO: get selected value from localStorage/url

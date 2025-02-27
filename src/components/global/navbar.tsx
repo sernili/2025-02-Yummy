@@ -28,7 +28,7 @@ export default function Navbar() {
             Templates
           </a>
           <a
-            href="/list"
+            href="/shoppinglist"
             className="selected:text-white hover:bg-primary selected:bg-primary selected: rounded-full px-4 py-2 text-black no-underline hover:rounded-full hover:text-white"
           >
             Einkaufsliste

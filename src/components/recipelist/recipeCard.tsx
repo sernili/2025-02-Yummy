@@ -1,7 +1,7 @@
 import { Recipe } from "@/store/recipes";
 import Image from "next/image";
 
-export default function RecipeListCard({ recipe }: { recipe: Recipe }) {
+export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <div className="flex w-full flex-col rounded-2xl bg-white shadow-lg">
       <div className="h-[10rem] w-full">

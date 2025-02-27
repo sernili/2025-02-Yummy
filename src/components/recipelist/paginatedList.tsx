@@ -1,30 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import useStore from "../store/recipes";
-import RecipeListCard from "./recipeListCard";
-import { Recipe } from "@/store/recipes";
+import useStore from "../../store/recipes";
+import { Recipe, Tag } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/app/hooks/useRecipeFilters";
-
-export default function RecipeCardList({
-  recipesForCurrPage,
-}: {
-  recipesForCurrPage: Recipe[];
-}) {
-  return (
-    <div className="w-full overflow-scroll">
-      <div className="grid auto-rows-[1fr] grid-cols-[repeat(auto-fill,_minmax(min(20rem,100%),_1fr))] gap-6">
-        {recipesForCurrPage.map(
-          (recipe) =>
-            recipe.display && (
-              <RecipeListCard key={recipe.key} recipe={recipe} />
-            ),
-        )}
-      </div>
-    </div>
-  );
-}
+import RecipeList from "./recipeList";
 
 export function PaginatedRecipeList({
   itemsPerPage,
@@ -34,6 +15,7 @@ export function PaginatedRecipeList({
   // Getters and Constants ----------------------------------------------
 
   const DEFAULT_ITEM_OFFSET = 0;
+  const DEFAULT_PAGE_INDEX = 0;
 
   const getPageCount = (newRecipesToDisplay: Recipe[]) =>
     Math.ceil(newRecipesToDisplay.length / itemsPerPage);
@@ -63,7 +45,9 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes } = useStore();
+  const { recipes: allRecipes, tags } = useStore();
+
+  const prevSelectedTags = useRef<Tag[]>(tags);
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
     getRecipesToDisplay(getSortedRecipes(allRecipes)),
@@ -74,12 +58,10 @@ export function PaginatedRecipeList({
 
   const { filters, setFilters } = useRecipeFilters();
 
-  const [selectedTags] = useState(filters.selectedTags);
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
   const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
-  const [currentPage, setCurrentPage] = useState(0);
-  const prevSelectedTags = useRef(selectedTags);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
 
   // Side Effects ----------------------------------------------
 
@@ -88,16 +70,16 @@ export function PaginatedRecipeList({
   }, []);
 
   useEffect(() => {
-    // deep compare selectedTags to keep initial itemOffset when selectedTags change initially
-    if (selectedTags !== prevSelectedTags.current) {
+    // deep compare tags to keep initial itemOffset when tags change initially
+    if (tags !== prevSelectedTags.current) {
       updatePagination(DEFAULT_ITEM_OFFSET);
-      prevSelectedTags.current = selectedTags;
+      prevSelectedTags.current = tags;
     }
-  }, [selectedTags]);
+  }, [tags]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setFilters({ selectedTags, itemOffset });
+      setFilters({ itemOffset });
     }, 500);
 
     return () => clearTimeout(timeoutId);
@@ -124,9 +106,9 @@ export function PaginatedRecipeList({
     const currPage =
       newPageIndices.findLastIndex(
         (pageIndex: number) => pageIndex < newItemOffset,
-      ) ?? 0;
+      ) ?? DEFAULT_PAGE_INDEX;
 
-    const correctedItemOffset = newPageIndices[currPage];
+    const correctedItemOffset = newPageIndices[currPage] ?? DEFAULT_ITEM_OFFSET;
     const newEndOffset = getEndOffset(correctedItemOffset);
 
     const newRecipesForCurrPage = getRecipesForCurrPage(
@@ -146,7 +128,7 @@ export function PaginatedRecipeList({
     <>
       {recipesToDisplay.length > 0 ? (
         <>
-          <RecipeCardList
+          <RecipeList
             key="recipe-card-list"
             recipesForCurrPage={recipesForCurrPage}
           />
