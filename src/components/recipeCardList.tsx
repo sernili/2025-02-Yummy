@@ -33,21 +33,14 @@ export function PaginatedRecipeList({
 }: {
   itemsPerPage: number;
 }) {
-  // Filter and Pagination Info ----------------------------------------------
-  const { filters, setFilters } = useRecipeFilters();
+  // Getters and Constants ----------------------------------------------
 
-  const [selectedTags] = useState(filters.selectedTags);
-  const [pageCount, setPageCount] = useState(filters.pageCount);
-  const [itemOffset, setItemOffset] = useState(filters.itemOffset);
+  const DEFAULT_ITEM_OFFSET = 0;
 
-  const defaultItemOffset = 0;
-  const getPageCount = (newRecipesToDisplay: Recipe[] = recipesToDisplay) =>
+  const getPageCount = (newRecipesToDisplay: Recipe[]) =>
     Math.ceil(newRecipesToDisplay.length / itemsPerPage);
 
-  // Recipe Info ----------------------------------------------
-  const { recipes: allRecipes } = useStore();
-
-  const getRecipesToDisplay = () =>
+  const getRecipesToDisplay = (allRecipes: Recipe[]) =>
     allRecipes.filter((recipe) => recipe.display);
 
   const getRecipesForCurrPage = (
@@ -56,55 +49,69 @@ export function PaginatedRecipeList({
     newRecipesToDisplay: Recipe[] = recipesToDisplay,
   ) => [...newRecipesToDisplay.slice(newItemOffset, newEndOffset)];
 
-  const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
-    getRecipesToDisplay(),
-  );
+  // Recipe Info ----------------------------------------------
 
+  const { recipes: allRecipes } = useStore();
+
+  const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
+    getRecipesToDisplay(allRecipes),
+  );
   const [recipesForCurrPage, setRecipesForCurrPage] = useState<Recipe[]>([]);
 
+  // Filter and Pagination Info ----------------------------------------------
+
+  const { filters, setFilters } = useRecipeFilters();
+
+  const [selectedTags] = useState(filters.selectedTags);
+  const [itemOffset, setItemOffset] = useState(filters.itemOffset);
+
+  const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
+
   // Side Effects ----------------------------------------------
-  // Sync local state with URL parameters on initial load
+
+  // TODO: sort recipes alphabetically agains
+
   useEffect(() => {
-    setPageCount(filters.pageCount);
-    setItemOffset(filters.itemOffset);
+    updatePaginationLogic(Number(filters.itemOffset));
   }, [filters]);
 
-  // Update local state when allRecipes changes
   useEffect(() => {
-    const newItemOffset = defaultItemOffset; // TODO: not always right
-    const newEndOffset = newItemOffset + itemsPerPage;
-
-    const newRecipesToDisplay = getRecipesToDisplay();
-
-    const newPageCount = getPageCount(newRecipesToDisplay);
-
-    setItemOffset(newItemOffset.toString());
-    setPageCount(newPageCount.toString());
-
-    setRecipesToDisplay(newRecipesToDisplay);
-    setRecipesForCurrPage(
-      getRecipesForCurrPage(newItemOffset, newEndOffset, newRecipesToDisplay),
-    );
+    updatePaginationLogic(DEFAULT_ITEM_OFFSET);
   }, [allRecipes]);
 
-  // Update URL parameters when local state changes (with debounce)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setFilters({ selectedTags, pageCount, itemOffset });
+      setFilters({ selectedTags, itemOffset });
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [itemOffset, pageCount]);
+  }, [itemOffset]);
 
   // Event Handlers ----------------------------------------------
+
   const handlePageClick = (event: { selected: number }) => {
     const newItemOffset =
       (event.selected * itemsPerPage) % recipesToDisplay.length;
     const newEndOffset = newItemOffset + itemsPerPage;
 
     setItemOffset(newItemOffset.toString());
-
     setRecipesForCurrPage(getRecipesForCurrPage(newItemOffset, newEndOffset));
+  };
+
+  const updatePaginationLogic = (newItemOffset: number) => {
+    const newEndOffset = newItemOffset + itemsPerPage;
+    const newRecipesToDisplay = getRecipesToDisplay(allRecipes);
+    const newPageCount = getPageCount(newRecipesToDisplay);
+    const newRecipesForCurrPage = getRecipesForCurrPage(
+      newItemOffset,
+      newEndOffset,
+      newRecipesToDisplay,
+    );
+
+    setItemOffset(newItemOffset.toString());
+    setPageCount(newPageCount);
+    setRecipesToDisplay(newRecipesToDisplay);
+    setRecipesForCurrPage(newRecipesForCurrPage);
   };
 
   return (
@@ -120,7 +127,7 @@ export function PaginatedRecipeList({
             nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
-            pageCount={Number(pageCount)}
+            pageCount={pageCount}
             previousLabel="<"
             className="text-primary *:[&.disabled]:text-tertiary *:not my-16 flex w-full items-center justify-center gap-8 text-center *:cursor-pointer *:not-[&.disabled]:hover:border-b *:[&.disabled]:cursor-default *:[&.selected]:border-b"
           />

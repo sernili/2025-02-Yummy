@@ -5,7 +5,6 @@ import { useCallback, useMemo } from "react";
 
 export type RecipeFilters = {
   selectedTags: string;
-  pageCount: string;
   itemOffset: string;
 };
 
@@ -17,7 +16,6 @@ const useRecipeFilters = () => {
   const filters = useMemo(
     () => ({
       selectedTags: searchParams.get("selectedTags") || "",
-      pageCount: searchParams.get("pageCount") || "1",
       itemOffset: searchParams.get("itemOffset") || "0",
     }),
     [searchParams],
