@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStore from "../store/recipes";
 import RecipeListCard from "./recipeListCard";
 import { Recipe } from "@/store/recipes";
@@ -38,6 +38,8 @@ export function PaginatedRecipeList({
   const getPageCount = (newRecipesToDisplay: Recipe[]) =>
     Math.ceil(newRecipesToDisplay.length / itemsPerPage);
 
+  const getEndOffset = (newItemOffset: number) => newItemOffset + itemsPerPage;
+
   const getSortedRecipes = (recipes: Recipe[]) => {
     // Sort recipes alphabetically
     recipes.sort((a, b) => a.title.localeCompare(b.title));
@@ -61,7 +63,7 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes, updateRecipeDisplaySettings } = useStore();
+  const { recipes: allRecipes } = useStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
     getRecipesToDisplay(getSortedRecipes(allRecipes)),
@@ -76,18 +78,19 @@ export function PaginatedRecipeList({
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
   const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
+  const [currentPage, setCurrentPage] = useState(0);
   const prevSelectedTags = useRef(selectedTags);
 
   // Side Effects ----------------------------------------------
 
   useEffect(() => {
-    updatePaginationLogic(Number(itemOffset));
+    updatePagination(Number(itemOffset));
   }, []);
 
   useEffect(() => {
     // deep compare selectedTags to keep initial itemOffset when selectedTags change initially
     if (selectedTags !== prevSelectedTags.current) {
-      updatePaginationLogic(DEFAULT_ITEM_OFFSET);
+      updatePagination(DEFAULT_ITEM_OFFSET);
       prevSelectedTags.current = selectedTags;
     }
   }, [selectedTags]);
@@ -103,24 +106,28 @@ export function PaginatedRecipeList({
   // Event Handlers ----------------------------------------------
 
   const handlePageClick = (event: { selected: number }) => {
-    const newItemOffset =
-      (event.selected * itemsPerPage) % recipesToDisplay.length;
-    const newEndOffset = newItemOffset + itemsPerPage;
+    const pageIndex = event.selected;
+    const newItemOffset = (pageIndex * itemsPerPage) % recipesToDisplay.length;
+    const newEndOffset = getEndOffset(newItemOffset);
 
     setItemOffset(newItemOffset.toString());
     setRecipesForCurrPage(getRecipesForCurrPage(newItemOffset, newEndOffset));
   };
 
-  const updatePaginationLogic = (newItemOffset: number) => {
+  const updatePagination = (newItemOffset: number) => {
     const newRecipesToDisplay = getRecipesToDisplay(allRecipes);
-
     const newPageCount = getPageCount(newRecipesToDisplay);
-    const maxItemOffset = newPageCount - 1;
+    const newPageIndices: number[] = Array.from(
+      { length: newPageCount },
+      (_, i) => i * itemsPerPage,
+    );
+    const currPage =
+      newPageIndices.findLastIndex(
+        (pageIndex: number) => pageIndex < newItemOffset,
+      ) ?? 0;
 
-    const correctedItemOffset =
-      newItemOffset > maxItemOffset ? maxItemOffset : newItemOffset;
-
-    const newEndOffset = correctedItemOffset + itemsPerPage;
+    const correctedItemOffset = newPageIndices[currPage];
+    const newEndOffset = getEndOffset(correctedItemOffset);
 
     const newRecipesForCurrPage = getRecipesForCurrPage(
       correctedItemOffset,
@@ -128,10 +135,8 @@ export function PaginatedRecipeList({
       newRecipesToDisplay,
     );
 
-    console.log(newPageCount);
-    console.log(correctedItemOffset);
-
     setItemOffset(correctedItemOffset.toString());
+    setCurrentPage(currPage);
     setPageCount(newPageCount);
     setRecipesToDisplay(newRecipesToDisplay);
     setRecipesForCurrPage(newRecipesForCurrPage);
@@ -150,9 +155,9 @@ export function PaginatedRecipeList({
             nextLabel=">"
             onPageChange={handlePageClick}
             pageRangeDisplayed={5}
-            initialPage={Number(itemOffset)}
             pageCount={pageCount}
             previousLabel="<"
+            forcePage={currentPage}
             className="text-primary *:[&.disabled]:text-tertiary *:not my-16 flex w-full items-center justify-center gap-8 text-center *:cursor-pointer *:not-[&.disabled]:hover:border-b *:[&.disabled]:cursor-default *:[&.selected]:border-b"
           />
         </>
