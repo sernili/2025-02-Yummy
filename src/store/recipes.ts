@@ -1,12 +1,9 @@
+import { log } from "console";
 import { create } from "zustand";
 
 type Store = {
   recipes: Recipe[];
-  updateRecipeDisplaySettings: () => void;
-  tags: Tag[];
-  getTagsFromRecipes: () => void;
-  sortTags: () => void;
-  updateTag: (clickedTag: Tag) => void;
+  updateRecipeDisplaySettings: (selectedTags: string[]) => void;
 };
 
 export type Recipe = {
@@ -18,12 +15,6 @@ export type Recipe = {
   people?: number;
   imageURL?: string;
   display: boolean;
-};
-
-export type Tag = {
-  label: string;
-  value: string;
-  selected: boolean; // multiple tags can be selected
 };
 
 const useStore = create<Store>()((set) => ({
@@ -200,23 +191,16 @@ const useStore = create<Store>()((set) => ({
       display: true,
     },
   ],
-  updateRecipeDisplaySettings: () => {
+  updateRecipeDisplaySettings: (selectedTags: string[]) => {
     set((state: Store) => {
-      // Get selected tag names
-      const selectedTagNames: string[] = state.tags
-        .filter((tag) => tag.selected)
-        .map((tag) => tag.label);
-
       // Update display property of recipes
       const newRecipes: Recipe[] = state.recipes.map((recipe) => ({
         ...recipe,
         display:
-          selectedTagNames.length === 0 ||
+          selectedTags.length === 0 ||
           (!!recipe.tags &&
             recipe.tags?.length > 0 &&
-            selectedTagNames.every((tagName) =>
-              recipe.tags?.includes(tagName),
-            )),
+            selectedTags.every((tagName) => recipe.tags?.includes(tagName))),
       }));
 
       // Sort recipes alphabetically
@@ -227,50 +211,13 @@ const useStore = create<Store>()((set) => ({
         recipe.tags?.sort((a, b) => a.localeCompare(b));
       });
 
+      console.log("selectedTags", selectedTags);
+
+      console.log("newRecipes", newRecipes);
+
       return {
         recipes: newRecipes,
       };
-    });
-  },
-  tags: [],
-  getTagsFromRecipes: () => {
-    set((state: Store) => {
-      const allTagNames = state.recipes
-        .map((recipe) => recipe.tags)
-        .flat()
-        .filter((tag): tag is string => tag != undefined);
-
-      const uniqueTagNames = [...new Set(allTagNames)];
-
-      return {
-        tags: uniqueTagNames.map((tag) => ({
-          label: tag,
-          value: tag.toLowerCase(),
-          selected: false,
-        })),
-      };
-    });
-  },
-  sortTags: () => {
-    set((state: Store) => {
-      const selectedTags = state.tags.filter((tag) => tag.selected);
-      selectedTags.sort((a, b) => a.label.localeCompare(b.label));
-
-      const otherTags = state.tags.filter((tag) => !tag.selected);
-      otherTags.sort((a, b) => a.label.localeCompare(b.label));
-
-      return { tags: [...selectedTags, ...otherTags] };
-    });
-  },
-  updateTag: (clickedTag: Tag) => {
-    set((state: Store) => {
-      const updatedTags = state.tags.map((tag) =>
-        tag.value === clickedTag.value
-          ? { ...tag, selected: !tag.selected }
-          : tag,
-      );
-
-      return { tags: updatedTags };
     });
   },
 }));

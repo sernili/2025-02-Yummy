@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useStore from "../../store/recipes";
-import { Recipe, Tag } from "@/store/recipes";
+import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/app/hooks/useRecipeFilters";
 import RecipeList from "./recipeList";
@@ -45,9 +45,7 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes, tags } = useStore();
-
-  const prevSelectedTags = useRef<Tag[]>(tags);
+  const { recipes: allRecipes } = useStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
     getRecipesToDisplay(getSortedRecipes(allRecipes)),
@@ -58,6 +56,7 @@ export function PaginatedRecipeList({
 
   const { filters, setFilters } = useRecipeFilters();
 
+  const [tags] = useState(filters.tags);
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
 
   const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
@@ -71,15 +70,17 @@ export function PaginatedRecipeList({
 
   useEffect(() => {
     // deep compare tags to keep initial itemOffset when tags change initially
-    if (tags !== prevSelectedTags.current) {
-      updatePagination(DEFAULT_ITEM_OFFSET);
-      prevSelectedTags.current = tags;
-    }
-  }, [tags]);
+    // if (tags !== prevSelectedTags.current) {
+    console.log("update");
+
+    updatePagination(DEFAULT_ITEM_OFFSET);
+    // prevSelectedTags.current = tags;
+    // }
+  }, [allRecipes]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setFilters({ itemOffset });
+      setFilters({ tags, itemOffset });
     }, 500);
 
     return () => clearTimeout(timeoutId);
