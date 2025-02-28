@@ -5,7 +5,7 @@ import useStore from "../../store/recipes";
 import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/app/hooks/useRecipeFilters";
-import RecipeList from "@/components/recipeList/recipeList";
+import RecipeList from "./recipeList";
 
 export function PaginatedRecipeList({
   itemsPerPage,
