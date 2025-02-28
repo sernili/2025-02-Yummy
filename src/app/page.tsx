@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 export default function Page() {
-  redirect("/recipelist");
+  redirect("/recipes");
 
   return <p>Homepage</p>;
 }

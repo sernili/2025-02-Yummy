@@ -10,7 +10,7 @@ export default function Navbar() {
       {showNavbar && (
         <div className="flex items-center justify-between gap-4">
           <a
-            href="/recipelist"
+            href="/recipes"
             className="selected:text-white hover:bg-primary selected:bg-primary selected: rounded-full px-4 py-2 text-black no-underline hover:rounded-full hover:text-white"
           >
             Rezepte

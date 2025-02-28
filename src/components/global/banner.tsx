@@ -12,7 +12,7 @@ export default async function Banner() {
 
   const titlesMap: TitlesMap = {
     "/": "Home",
-    "/recipelist": "Rezepte",
+    "/recipes": "Rezepte",
     "/planner": "Planner",
     "/templates": "Templates",
     "/list": "Einkaufsliste",

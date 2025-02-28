@@ -4,7 +4,7 @@ import useStore from "@/store/global";
 
 export default function Logo() {
   const { showNavbar } = useStore();
-  const logoRef = showNavbar ? "/" : "/recipelist";
+  const logoRef = showNavbar ? "/" : "/recipes";
 
   return (
     <>

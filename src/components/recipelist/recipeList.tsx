@@ -3,7 +3,7 @@
 import { Recipe } from "@/store/recipes";
 import RecipeCard from "./recipeCard";
 
-export default function RecipeList({
+export default function recipes({
   recipesForCurrPage,
 }: {
   recipesForCurrPage: Recipe[];
