@@ -1,48 +1,59 @@
-import { Recipe } from "@/store/recipes";
+"use client";
+
+import useStore, { Recipe } from "@/store/recipes";
 import Image from "next/image";
 
-export default function RecipeCard({ recipe }: { recipe: Recipe }) {
-  return (
-    <div className="flex w-full flex-col rounded-2xl bg-white shadow-lg">
-      <div className="h-[10rem] w-full">
-        <Image
-          src={recipe.imageURL || ""}
-          alt="recipephoto"
-          className="h-full w-full rounded-t-2xl object-cover"
-          width={300}
-          height={300}
-        />
-      </div>
+export default function RecipeCard({ slug }: { slug: string }) {
+  const { recipes } = useStore();
+  const recipeTitle = slug.replaceAll("%20", " ");
 
-      <div className="flex h-full flex-col justify-between gap-14 p-4">
-        <div className="space-y-1">
-          <h2 className="text-primary font-serif text-4xl">{recipe.title}</h2>
-          <p className="text-primary">{recipe.description}</p>
+  const recipe = recipes.find((recipe: Recipe) => recipe.title === recipeTitle);
+
+  console.log(recipeTitle);
+
+  return (
+    recipe && (
+      <div className="flex w-full flex-col rounded-2xl bg-white shadow-lg">
+        <div className="h-[10rem] w-full">
+          <Image
+            src={recipe.imageURL || ""}
+            alt="recipephoto"
+            className="h-full w-full rounded-t-2xl object-cover"
+            width={300}
+            height={300}
+          />
         </div>
 
-        <p className="text-tertiary flex flex-wrap gap-2 text-sm">
-          {recipe?.tags && recipe.tags.length > 0 && (
-            <span
-              className="relative inline-block w-fit min-w-0 overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
-              title={(recipe.tags || []).join(", ")}
-            >
-              {(recipe.tags || []).join(", ")}
-            </span>
-          )}
+        <div className="flex h-full flex-col justify-between gap-14 p-4">
+          <div className="space-y-1">
+            <h2 className="text-primary font-serif text-4xl">{recipe.title}</h2>
+            <p className="text-primary">{recipe.description}</p>
+          </div>
 
-          {recipe.cookingTime && (
-            <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
-              {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
-            </span>
-          )}
+          <p className="text-tertiary flex flex-wrap gap-2 text-sm">
+            {recipe?.tags && recipe.tags.length > 0 && (
+              <span
+                className="relative inline-block w-fit min-w-0 overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
+                title={(recipe.tags || []).join(", ")}
+              >
+                {(recipe.tags || []).join(", ")}
+              </span>
+            )}
 
-          {recipe.people && (
-            <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
-              {recipe.people + " Personen"}
-            </span>
-          )}
-        </p>
+            {recipe.cookingTime && (
+              <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
+                {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
+              </span>
+            )}
+
+            {recipe.people && (
+              <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
+                {recipe.people + " Personen"}
+              </span>
+            )}
+          </p>
+        </div>
       </div>
-    </div>
+    )
   );
 }

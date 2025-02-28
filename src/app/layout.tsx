@@ -43,7 +43,7 @@ export default function RootLayout({
     >
       <body
         className={
-          "bg-secondary m-0 flex min-h-screen flex-col items-center justify-center overflow-scroll font-sans"
+          "bg-secondary m-0 flex min-h-screen flex-col items-center overflow-scroll font-sans"
         }
       >
         <div className="h-fit w-full max-w-[80rem] p-[min(1rem,_8%)]">
