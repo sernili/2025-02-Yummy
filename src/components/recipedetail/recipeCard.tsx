@@ -1,59 +1,54 @@
 "use client";
 
 import useStore, { Recipe } from "@/store/recipes";
-import Image from "next/image";
 
 export default function RecipeCard({ slug }: { slug: string }) {
   const { recipes } = useStore();
-  const recipeTitle = slug.replaceAll("%20", " ");
+  const titleFromSlug = slug.replaceAll("%20", " ");
 
-  const recipe = recipes.find((recipe: Recipe) => recipe.title === recipeTitle);
-
-  console.log(recipeTitle);
+  const recipe = recipes.find(
+    (recipe: Recipe) => recipe.title === titleFromSlug,
+  );
 
   return (
     recipe && (
-      <div className="flex w-full flex-col rounded-2xl bg-white shadow-lg">
-        <div className="h-[10rem] w-full">
-          <Image
-            src={recipe.imageURL || ""}
-            alt="recipephoto"
-            className="h-full w-full rounded-t-2xl object-cover"
-            width={300}
-            height={300}
-          />
-        </div>
-
-        <div className="flex h-full flex-col justify-between gap-14 p-4">
-          <div className="space-y-1">
-            <h2 className="text-primary font-serif text-4xl">{recipe.title}</h2>
-            <p className="text-primary">{recipe.description}</p>
+      <>
+        <div
+          style={{ backgroundImage: `url('${recipe.imageURL || ""}')` }}
+          className="my-4 flex h-[clamp(40rem,_40vh,_75vh)] flex-col justify-end space-y-16 overflow-hidden rounded-4xl bg-cover bg-center p-6 text-white shadow"
+        >
+          <div>
+            <h1 className="font-serif text-[clamp(4rem,_8vw,_8rem)] leading-none">
+              {recipe.title}
+            </h1>
+            <p className="text-2xl">{recipe.description}</p>
           </div>
-
-          <p className="text-tertiary flex flex-wrap gap-2 text-sm">
-            {recipe?.tags && recipe.tags.length > 0 && (
-              <span
-                className="relative inline-block w-fit min-w-0 overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
-                title={(recipe.tags || []).join(", ")}
-              >
-                {(recipe.tags || []).join(", ")}
-              </span>
-            )}
-
+          <p className="flex flex-wrap gap-2 text-lg">
             {recipe.cookingTime && (
               <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
+                Dauer:{" "}
                 {recipe.cookingTime.number + " " + recipe.cookingTime.unit}
               </span>
             )}
 
             {recipe.people && (
               <span className="flex-none after:ml-2 after:content-['|'] last:after:content-none">
-                {recipe.people + " Personen"}
+                Personen: {recipe.people}
               </span>
             )}
           </p>
         </div>
-      </div>
+
+        <div className="flex w-full flex-col rounded-2xl bg-white shadow-lg">
+          <div className="flex h-full flex-col justify-between gap-14 p-4">
+            <div className="space-y-1">
+              <h2 className="text-primary font-serif text-4xl">
+                {recipe.title}
+              </h2>
+            </div>
+          </div>
+        </div>
+      </>
     )
   );
 }
