@@ -21,12 +21,12 @@ export default function RecipeCard({ slug }: { slug: string }) {
       <>
         <Header recipe={recipe} />
 
-        <div className="my-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2">
-          <div className="md:col-span-2">
+        <div className="my-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="md:col-span-2 lg:col-span-3">
             {recipe.tags && <Tags tags={recipe.tags} />}
           </div>
 
-          <div className="">
+          <div className="lg:col-span-2">
             <Steps steps={recipe.steps} />
           </div>
 
@@ -34,7 +34,7 @@ export default function RecipeCard({ slug }: { slug: string }) {
             <Ingredients ingredients={recipe.ingredients} />
           </div>
 
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 lg:col-span-3">
             {recipe.notes && <Notes notes={recipe.notes} />}
           </div>
         </div>
