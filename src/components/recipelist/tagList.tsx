@@ -78,12 +78,12 @@ export default function TagList() {
     array.filter((element) => element !== "");
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-1.5">
       {allTags.map((tag) => (
         <button
           key={tag}
           onClick={() => handleClick(tag)}
-          className={`rounded-xl px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer ${
+          className={`rounded-md px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer ${
             selectedTags.includes(tag)
               ? "bg-primary hover:bg-primary/80 text-white"
               : "hover:bg-primary/20 text-primary bg-white hover:text-white"

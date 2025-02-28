@@ -1,4 +1,3 @@
-import { log } from "console";
 import { create } from "zustand";
 
 type Store = {
@@ -6,23 +5,34 @@ type Store = {
   updateRecipeDisplaySettings: (selectedTags: string[]) => void;
 };
 
-type Ingredients = {
+export type Ingredients = {
   name: string;
   amount: string;
   unit: string;
 };
 
+export type CookingTime = {
+  unit: string;
+  number: number;
+};
+
+export type Tag = string;
+
+export type Steps = string;
+
+export type Notes = string;
+
 export type Recipe = {
   title: string;
   key: string;
   description?: string;
-  tags?: string[];
-  cookingTime?: { unit: string; number: number };
+  tags?: Tag[];
+  cookingTime?: CookingTime;
   people?: number;
   imageURL?: string;
   display: boolean;
-  steps: string[];
-  notes?: string;
+  steps: Steps[];
+  notes?: Notes;
   ingredients: Ingredients[];
 };
 

@@ -1,4 +1,4 @@
-import RecipeCard from "@/components/recipedetail/recipeCard";
+import RecipeCard from "@/components/recipedetail/card";
 
 export default async function Page({
   params,

@@ -19,11 +19,11 @@ export default async function Banner() {
   };
 
   return (
-    <div className="relative my-4 max-h-96 overflow-hidden rounded-4xl">
+    <div className="relative my-4 max-h-96 overflow-hidden rounded-xl">
       <Image
         src={banner}
         alt="banner"
-        className="max-h-96 w-full overflow-hidden rounded-4xl object-cover object-center"
+        className="max-h-96 w-full overflow-hidden rounded-xl object-cover object-center"
         priority
       />
       <h1 className="absolute bottom-[min(.05rem,_8%)] left-[min(1rem,_8%)] font-serif text-[clamp(3rem,_12vw,_10rem)] text-white">
