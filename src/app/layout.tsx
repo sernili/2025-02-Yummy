@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Knewave, Caveat } from "next/font/google";
 import "./globals.css";
-import Banner from "@/components/global/banner";
 import Header from "@components/global/header";
 import Footer from "@/components/global/footer";
 
@@ -48,7 +47,6 @@ export default function RootLayout({
       >
         <div className="h-fit w-full max-w-[80rem] p-[min(1rem,_8%)]">
           <Header />
-          <Banner />
           {children}
         </div>
         <Footer />
