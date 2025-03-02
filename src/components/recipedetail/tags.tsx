@@ -11,9 +11,9 @@ export default function Tags({ tags }: { tags: Tag[] }) {
           {tag}
         </button>
       ))}
-      <button className="hover:bg-primary/20 text-primary rounded-md bg-white px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer hover:text-white">
+      {/* <button className="hover:bg-primary/20 text-primary rounded-md bg-white px-4 py-1.5 text-sm shadow transition-all duration-300 hover:cursor-pointer hover:text-white">
         +
-      </button>
+      </button> */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/app/hooks/useRecipeFilters";
 import RecipeList from "./recipeList";
+import { useSearchParams } from "next/navigation";
 
 export function PaginatedRecipeList({
   itemsPerPage,
@@ -66,17 +67,26 @@ export function PaginatedRecipeList({
 
   // Side Effects ----------------------------------------------
 
+  const searchParams = useSearchParams();
+  const id = searchParams.get("itemOffset"); // Get the parameter from the URL
+
+  useEffect(() => {
+    console.log("URL parameter changed:", id);
+  }, [id]);
+
   useEffect(() => {
     updatePagination(Number(itemOffset));
   }, []);
 
   useEffect(() => {
+    console.log("prevAllRecipes", prevAllRecipes.current);
+
     // deep compare to keep initial itemOffset when values change initially
-    if (JSON.stringify(allRecipes) !== JSON.stringify(prevAllRecipes.current)) {
-      updatePagination(DEFAULT_ITEM_OFFSET);
-      prevAllRecipes.current = allRecipes;
-      console.log("update");
-    }
+    // if (JSON.stringify(allRecipes) !== JSON.stringify(prevAllRecipes.current)) {
+    updatePagination(DEFAULT_ITEM_OFFSET);
+    prevAllRecipes.current = allRecipes;
+    console.log("update");
+    // }
   }, [allRecipes]);
 
   useEffect(() => {
@@ -119,8 +129,6 @@ export function PaginatedRecipeList({
       newEndOffset,
       newRecipesToDisplay,
     );
-
-    console.log("updatePagination");
 
     setItemOffset(correctedItemOffset.toString());
     setCurrentPage(currPage);

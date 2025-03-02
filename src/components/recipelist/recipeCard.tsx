@@ -5,12 +5,12 @@ import Link from "next/link";
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Link href={`/recipes/${recipe.title}`}>
-      <div className="flex w-full flex-col rounded-lg bg-white shadow-lg">
+      <div className="flex h-full w-full flex-col rounded-lg bg-white shadow-lg">
         <div className="h-[10rem] w-full">
           <Image
             src={recipe.imageURL || ""}
             alt="recipephoto"
-            className="h-full w-full rounded-t-2xl object-cover"
+            className="h-full w-full rounded-t-lg object-cover"
             width={300}
             height={300}
           />
