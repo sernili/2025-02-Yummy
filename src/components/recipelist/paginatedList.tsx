@@ -70,6 +70,7 @@ export function PaginatedRecipeList({
   const searchParams = useSearchParams();
   const id = searchParams.get("itemOffset"); // Get the parameter from the URL
 
+  // TODO: remove all console.logs
   useEffect(() => {
     console.log("URL parameter changed:", id);
   }, [id]);
