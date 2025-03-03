@@ -1,11 +1,10 @@
 import RecipeCard from "@/components/recipedetail/card";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+type Params = Promise<{ slug: string }>;
 
-  return slug && <RecipeCard slug={slug} />;
-}
+const Page = async ({ params }: { params: Params }) => {
+  const { slug } = await params;
+  return <RecipeCard slug={slug} />;
+};
+
+export default Page;

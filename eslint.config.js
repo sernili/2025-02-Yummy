@@ -21,7 +21,7 @@ export default tseslint.config(
       project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
-    settings: { react: { version: "18.3" } },
+    settings: { react: { version: "18" } },
     plugins: {
       react,
       "react-hooks": reactHooks,

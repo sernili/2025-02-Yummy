@@ -30,6 +30,5 @@
       "@app/*": ["src/app/*"],
       "@store/*": ["src/store/*"]
     }
-  },
-  "include": ["vite.config.ts"]
+  }
 }

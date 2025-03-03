@@ -1,17 +1,20 @@
 import Banner from "@/components/global/banner";
 import { PaginatedRecipeList } from "@/components/recipelist/paginatedList";
 import TagList from "@/components/recipelist/tagList";
+import { Suspense } from "react";
 
-export default function Page() {
+export default async function Page() {
   return (
     <>
       <Banner />
       <div className="bg-secondary space-y-12 overflow-hidden py-6">
-        <TagList />
+        <Suspense fallback={<div>Loading...</div>}>
+          <TagList />
 
-        <div className="space-y-6">
-          <PaginatedRecipeList itemsPerPage={6} />
-        </div>
+          <div className="space-y-6">
+            <PaginatedRecipeList itemsPerPage={6} />
+          </div>
+        </Suspense>
       </div>
     </>
   );
