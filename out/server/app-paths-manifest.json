@@ -1,9 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
   "/recipes/page": "app/recipes/page.js",
-  "/templates/page": "app/templates/page.js",
-  "/recipes/[slug]/page": "app/recipes/[slug]/page.js",
-  "/shoppinglist/page": "app/shoppinglist/page.js",
-  "/planner/page": "app/planner/page.js"
+  "/recipes/[slug]/page": "app/recipes/[slug]/page.js"
 }
