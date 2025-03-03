@@ -1,7 +1,20 @@
 # ...
 .next
 next-env.d.ts
-out/
+build/
+app/
+static/
 node_modules/
 yarn.lock
 .DS_Store
+required-server-files.json
+prerender-manifest.json
+package-lock.json
+package-lock 2.json
+package-lock 3.json
+next-server.js.nft.json
+next-minimal-server.js.nft.json
+build-manifest.json
+BUILD_ID
+app-path-routes-manifest.json
+app-build-manifest.json
