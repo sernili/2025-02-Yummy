@@ -7,10 +7,11 @@
   ],
   "include": [
     "./build/types/**/*.ts",
+    ".next/types/**/*.ts",
     "next-env.d.ts",
     "src/**/*",
-    ".next/types/**/*.ts",
-    "src/custom.d.ts"
+    "src/custom.d.ts",
+    "./out/types/**/*.ts"
   ],
   "compilerOptions": {
     "declaration": true,
@@ -19,7 +20,12 @@
     "outDir": "dist",
     "composite": true,
     "target": "esnext",
-    "lib": ["ES2023", "dom", "dom.iterable", "esnext"],
+    "lib": [
+      "ES2023",
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -37,13 +43,26 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@public/*": ["public/*"],
-      "@components/*": ["src/components/*"],
-      "@app/*": ["src/app/*"],
-      "@store/*": ["src/store/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ]
     },
     "noEmit": false
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

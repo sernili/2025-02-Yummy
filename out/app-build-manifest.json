@@ -1,0 +1,64 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/app/_not-found/page-20683db8b3969b6e.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/css/b2b41a7aab070fb8.css",
+      "static/chunks/app/layout-439223dc9acc0f6c.js"
+    ],
+    "/recipes/[slug]/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/747-f6757614c94b8672.js",
+      "static/chunks/app/recipes/[slug]/page-54abc9314aa9c575.js"
+    ],
+    "/shoppinglist/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/app/shoppinglist/page-3ec18b7d3b54e436.js"
+    ],
+    "/recipes/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/181-ecb6aefc4ddc2892.js",
+      "static/chunks/747-f6757614c94b8672.js",
+      "static/chunks/app/recipes/page-210490b8eed01593.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/app/page-2e5d65dbcedc1c53.js"
+    ],
+    "/planner/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/app/planner/page-41b9e691f5561083.js"
+    ],
+    "/templates/page": [
+      "static/chunks/webpack-a3adbbd92f50b563.js",
+      "static/chunks/4bd1b696-4c8bdb7754c04bc8.js",
+      "static/chunks/587-82a49cc7ebfd2a70.js",
+      "static/chunks/main-app-abf83eab7daf85b9.js",
+      "static/chunks/app/templates/page-cc2d41c4d173d26f.js"
+    ]
+  }
+}

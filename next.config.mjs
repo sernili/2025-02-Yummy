@@ -1,7 +1,6 @@
 const isProd = process.env.NODE_ENV === "production";
 const nextConfig = {
-  distDir: "./build", // Changes the build output directory to `./build`.
-
+  distDir: "./out",
   reactStrictMode: false,
   images: {
     unoptimized: true, // Disable default image optimization

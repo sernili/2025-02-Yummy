@@ -1,0 +1,100 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "/2025-02-Yummy",
+  "redirects": [
+    {
+      "source": "/2025-02-Yummy/",
+      "destination": "/2025-02-Yummy",
+      "basePath": false,
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^/2025-02-Yummy/$"
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "dynamicRoutes": [
+    {
+      "page": "/recipes/[slug]",
+      "regex": "^/recipes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/recipes/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/planner",
+      "regex": "^/planner(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/planner(?:/)?$"
+    },
+    {
+      "page": "/recipes",
+      "regex": "^/recipes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/recipes(?:/)?$"
+    },
+    {
+      "page": "/shoppinglist",
+      "regex": "^/shoppinglist(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/shoppinglist(?:/)?$"
+    },
+    {
+      "page": "/templates",
+      "regex": "^/templates(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/templates(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  },
+  "rewrites": {
+    "beforeFiles": [
+      {
+        "source": "/2025-02-Yummy//_next/:path+",
+        "destination": "/2025-02-Yummy/_next/:path+",
+        "regex": "^/2025-02-Yummy//_next(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))(?:/)?$"
+      }
+    ],
+    "afterFiles": [],
+    "fallback": []
+  }
+}
