@@ -1,14 +1,15 @@
+"use client";
+
 import banner from "@public/banner.png";
 import Image from "next/image";
-import { headers } from "next/headers";
+import { usePathname } from "next/navigation";
 
 type TitlesMap = {
   [key: string]: string;
 };
 
-export default async function Banner() {
-  const headerList = await headers();
-  const pathname = headerList.get("x-current-path") || "/";
+export default function Banner() {
+  const pathname = usePathname();
 
   const titlesMap: TitlesMap = {
     "/": "Home",
@@ -27,7 +28,7 @@ export default async function Banner() {
         priority
       />
       <h1 className="absolute bottom-[min(.05rem,_8%)] left-[min(1rem,_8%)] font-serif text-[clamp(3rem,_12vw,_10rem)] text-white">
-        {titlesMap[pathname]}
+        {titlesMap[pathname] || ""}
       </h1>
     </div>
   );
