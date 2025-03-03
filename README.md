@@ -1,50 +1,41 @@
-# React + TypeScript + Vite
+# Yummy!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A recipe and meal planning app created by Lisa Sachse in 2025
 
-Currently, two official plugins are available:
+## Techstack:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- nextJS
+- Tailwind
+- Zustand
 
-## Expanding the ESLint configuration
+## Figma Template:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Click [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1-25&t=TCittuwd7iTDHRuu-1) to see Figma Template
 
-- Configure the top-level `parserOptions` property like this:
+## Features:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+- General
+  - [ ] Darkmode
+  - [ ] Accounts/ Login/ Database
+  - [ ] Search
+    - [ ] By category (recipe, ingredient)
+    - [ ] Autocomplte/ Suggestions
+  - [ ] I18n
+- Recipe List
+  - [x] List of all available recipes
+  - [x] Filter by Tag
+  - [x] Click to go to recipe
+  - [ ] Add recipes
+  - [ ] Adjust sorting rules
+  - [ ] Favorites
+- Recipe Detail Page
+  - [ ] Upload Images
+  - [ ] Edit Recipe
+  - [ ] Favorites
+- Shopping List
+  - [ ] Add elements to shopping cart from Recipe Detail Page
+  - [ ] Sorting by category
+  - [ ] Link to recipe
+- Meal Plans
+  - [ ] Create flexible meal plans for days, weeks and months
+  - [ ] Re-Useable templates
