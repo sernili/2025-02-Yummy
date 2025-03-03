@@ -97,7 +97,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02 Yummy",
+    "outputFileTracingRoot": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02-Yummy",
     "experimental": {
       "nodeMiddleware": false,
       "cacheLife": {
@@ -175,7 +175,7 @@
       "forceSwcTransforms": false,
       "largePageDataBytes": 128000,
       "turbo": {
-        "root": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02 Yummy"
+        "root": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02-Yummy"
       },
       "typedRoutes": false,
       "typedEnv": false,
@@ -281,7 +281,7 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.mjs"
   },
-  "appDir": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02 Yummy",
+  "appDir": "/Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02-Yummy",
   "relativeAppDir": "",
   "files": [
     "out/routes-manifest.json",

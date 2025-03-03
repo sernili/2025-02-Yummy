@@ -1,4 +1,4 @@
-// File: /Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02 Yummy/src/app/page.tsx
+// File: /Users/lisasachse/Documents/Lernen und Hobbies/Softwareentwicklung & Design/Projekte/2025-02-Yummy/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "/_not-found",
+  "/page": "/",
+  "/recipes/page": "/recipes",
+  "/templates/page": "/templates",
   "/recipes/[slug]/page": "/recipes/[slug]",
   "/shoppinglist/page": "/shoppinglist",
-  "/recipes/page": "/recipes",
-  "/page": "/",
-  "/planner/page": "/planner",
-  "/templates/page": "/templates"
+  "/planner/page": "/planner"
 }
