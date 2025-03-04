@@ -44,6 +44,14 @@ export function PaginatedRecipeList({
     newRecipesToDisplay: Recipe[] = recipesToDisplay,
   ) => [...newRecipesToDisplay.slice(newItemOffset, newEndOffset)];
 
+  const getCurrentPage = (newItemOffset: number) =>
+    Math.floor(newItemOffset / itemsPerPage);
+
+  const getNewItemOffset = (
+    pageIndex: number,
+    newRecipesToDisplay: Recipe[] = recipesToDisplay,
+  ) => (pageIndex * itemsPerPage) % newRecipesToDisplay.length;
+
   // Recipe Info ----------------------------------------------
 
   const { recipes: allRecipes } = useStore();
@@ -68,25 +76,23 @@ export function PaginatedRecipeList({
   // Side Effects ----------------------------------------------
 
   const searchParams = useSearchParams();
-  const id = searchParams.get("itemOffset"); // Get the parameter from the URL
-
-  // TODO: remove all console.logs
-  useEffect(() => {
-    console.log("URL parameter changed:", id);
-  }, [id]);
 
   useEffect(() => {
     updatePagination(Number(itemOffset));
   }, []);
 
   useEffect(() => {
-    console.log("prevAllRecipes", prevAllRecipes.current);
+    console.log("currentPage changed", currentPage);
+  }, [currentPage]);
 
+  useEffect(() => {
+    console.log("allRecipes changed");
+
+    // TODO: check if needed?
     // deep compare to keep initial itemOffset when values change initially
     // if (JSON.stringify(allRecipes) !== JSON.stringify(prevAllRecipes.current)) {
     updatePagination(DEFAULT_ITEM_OFFSET);
     prevAllRecipes.current = allRecipes;
-    console.log("update");
     // }
   }, [allRecipes]);
 
@@ -102,27 +108,23 @@ export function PaginatedRecipeList({
 
   const handlePageClick = (event: { selected: number }) => {
     const pageIndex = event.selected;
-    const newItemOffset = (pageIndex * itemsPerPage) % recipesToDisplay.length;
+    const newItemOffset = getNewItemOffset(pageIndex);
     const newEndOffset = getEndOffset(newItemOffset);
+    const newCurrPage = getCurrentPage(newItemOffset);
 
     setItemOffset(newItemOffset.toString());
+    setCurrentPage(newCurrPage);
     setRecipesForCurrPage(getRecipesForCurrPage(newItemOffset, newEndOffset));
   };
 
   const updatePagination = (newItemOffset: number) => {
     const newRecipesToDisplay = getRecipesToDisplay(allRecipes);
     const newPageCount = getPageCount(newRecipesToDisplay);
-    const newPageIndices: number[] = Array.from(
-      { length: newPageCount },
-      (_, i) => i * itemsPerPage,
+    const newCurrPage = getCurrentPage(newItemOffset);
+    const correctedItemOffset = getNewItemOffset(
+      newCurrPage,
+      newRecipesToDisplay,
     );
-
-    const currPageIndex = newPageIndices.findLastIndex(
-      (pageIndex: number) => pageIndex < newItemOffset,
-    );
-    const currPage = currPageIndex === -1 ? DEFAULT_PAGE_INDEX : currPageIndex;
-
-    const correctedItemOffset = newPageIndices[currPage] ?? DEFAULT_ITEM_OFFSET;
     const newEndOffset = getEndOffset(correctedItemOffset);
 
     const newRecipesForCurrPage = getRecipesForCurrPage(
@@ -132,7 +134,7 @@ export function PaginatedRecipeList({
     );
 
     setItemOffset(correctedItemOffset.toString());
-    setCurrentPage(currPage);
+    setCurrentPage(newCurrPage);
     setPageCount(newPageCount);
     setRecipesToDisplay(newRecipesToDisplay);
     setRecipesForCurrPage(newRecipesForCurrPage);
