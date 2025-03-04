@@ -88,7 +88,7 @@ export function PaginatedRecipeList({
   useEffect(() => {
     console.log("allRecipes changed");
 
-    // TODO: check if needed?
+    // TODO: implement working deep compare
     // deep compare to keep initial itemOffset when values change initially
     // if (JSON.stringify(allRecipes) !== JSON.stringify(prevAllRecipes.current)) {
     updatePagination(DEFAULT_ITEM_OFFSET);
