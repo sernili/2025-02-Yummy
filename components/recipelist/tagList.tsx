@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useState } from "react";
-import useStore from "../../store/recipes";
-import useRecipeFilters from "@/app/hooks/useRecipeFilters";
+import useStore from "@store/recipes";
+import useRecipeFilters from "@hooks/useRecipeFilters";
 
 export default function TagList() {
   const { recipes, updateRecipeDisplaySettings } = useStore();

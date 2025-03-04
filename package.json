@@ -17,6 +17,7 @@
     "react-dom": "^18.3.1",
     "react-jsx": "^1.0.0",
     "react-paginate": "^8.3.0",
+    "styled-jsx": "^5.1.6",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

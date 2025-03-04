@@ -26,12 +26,12 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["/*"],
+      "@app/*": ["app/*"],
       "@public/*": ["public/*"],
-      "@components/*": ["src/components/*"],
-      "@app/*": ["src/app/*"],
-      "@store/*": ["src/store/*"]
+      "@components/*": ["components/*"],
+      "@store/*": ["store/*"],
+      "@hooks/*": ["hooks/*"]
     }
-  },
-  "include": ["src", "tailwind.config.js"]
+  }
 }

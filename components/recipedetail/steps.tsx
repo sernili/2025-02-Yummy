@@ -1,4 +1,4 @@
-import type { Steps } from "@/store/recipes";
+import type { Steps } from "@store/recipes";
 
 export default function Steps({ steps }: { steps: Steps[] }) {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import useStore from "@/store/global";
+import useStore from "@store/global";
 
 export default function Logo() {
   const { showNavbar } = useStore();

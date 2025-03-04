@@ -1,4 +1,4 @@
-import { Recipe } from "@/store/recipes";
+import { Recipe } from "@store/recipes";
 import Image from "next/image";
 import Link from "next/link";
 

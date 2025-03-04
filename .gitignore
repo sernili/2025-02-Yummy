@@ -2,7 +2,6 @@
 .next
 next-env.d.ts
 build/
-app/
 static/
 node_modules/
 yarn.lock

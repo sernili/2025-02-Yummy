@@ -9,9 +9,13 @@
     "./build/types/**/*.ts",
     ".next/types/**/*.ts",
     "next-env.d.ts",
-    "src/**/*",
-    "src/custom.d.ts",
-    "./out/types/**/*.ts"
+    "custom.d.ts",
+    "./out/types/**/*.ts",
+    "app/**/*",
+    "store/**/*",
+    "components/**/*",
+    "public/**/*",
+    "hooks"
   ],
   "compilerOptions": {
     "declaration": true,
@@ -38,11 +42,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": ["/*"],
+      "@app/*": ["app/*"],
       "@public/*": ["public/*"],
-      "@components/*": ["src/components/*"],
-      "@app/*": ["src/app/*"],
-      "@store/*": ["src/store/*"]
+      "@components/*": ["components/*"],
+      "@store/*": ["store/*"],
+      "@hooks/*": ["hooks/*"]
     },
     "noEmit": false
   },

@@ -1,6 +1,6 @@
 "use client";
 
-import { Recipe } from "@/store/recipes";
+import { Recipe } from "@store/recipes";
 import RecipeCard from "./recipeCard";
 
 export default function RecipeList({
