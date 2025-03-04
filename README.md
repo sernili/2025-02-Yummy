@@ -25,6 +25,7 @@ Click [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1
   - [x] List of all available recipes
   - [x] Filter by Tag
   - [x] Click to go to recipe
+  - [ ] Add URL interactivity
   - [ ] Add recipes
   - [ ] Adjust sorting rules
   - [ ] Favorites
