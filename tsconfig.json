@@ -1,10 +1,50 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "jsx": "preserve",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@store/*": [
+        "store/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ]
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
   "include": [
     "./build/types/**/*.ts",
     ".next/types/**/*.ts",
@@ -17,39 +57,8 @@
     "public/**/*",
     "hooks"
   ],
-  "compilerOptions": {
-    "declaration": true,
-    "declarationMap": false,
-    "emitDeclarationOnly": false,
-    "outDir": "dist",
-    "composite": true,
-    "target": "esnext",
-    "lib": ["ES2023", "dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "incremental": true,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["/*"],
-      "@app/*": ["app/*"],
-      "@public/*": ["public/*"],
-      "@components/*": ["components/*"],
-      "@store/*": ["store/*"],
-      "@hooks/*": ["hooks/*"]
-    },
-    "noEmit": false
-  },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
