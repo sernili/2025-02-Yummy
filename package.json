@@ -8,10 +8,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seedRecipes": "node scripts/seedRecipes.js"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.8",
+    "dotenv": "^16.5.0",
     "firebase": "^11.6.1",
     "firebase-admin": "^13.3.0",
     "next": "^15.2.0",

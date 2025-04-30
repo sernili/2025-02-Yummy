@@ -1,5 +1,6 @@
 # ...
 .next
+.env
 next-env.d.ts
 build/
 static/
