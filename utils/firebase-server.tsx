@@ -1,4 +1,4 @@
-import { initializeApp, cert } from "firebase-admin/app";
+import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import "dotenv/config";
 
@@ -20,8 +20,15 @@ try {
   throw new Error("Error parsing FIREBASE_SERVICE_ACCOUNT_KEY");
 }
 
-const adminApp = initializeApp({
-  credential: cert(serviceAccount),
-});
+let adminApp;
+if (!getApps().length) {
+  adminApp = initializeApp({
+    credential: cert(serviceAccount),
+  });
+  console.log("Firebase Admin SDK initialized");
+} else {
+  adminApp = getApps()[0];
+  console.log("Firebase Admin SDK already initialized");
+}
 
 export const db = getFirestore(adminApp);
