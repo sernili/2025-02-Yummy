@@ -14,11 +14,10 @@ export default function TagList() {
 
   const [allTags, setAllTags] = useState<string[]>([]);
 
-  // TODO: make tags/ recipes persistent?
   useLayoutEffect(() => {
     const alltags = sortTags(getTagsFromRecipes(), selectedTags);
     setAllTags(alltags);
-  }, []);
+  }, [recipes]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
