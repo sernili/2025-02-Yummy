@@ -1,8 +1,11 @@
 import { create } from "zustand";
-import recipesJSON from "../data/recipes.json";
 
 type Store = {
   recipes: Recipe[];
+  isLoading: boolean;
+  error: string | null;
+  fetchInitialRecipes: () => Promise<void>;
+  setInitialRecipes: (initialRecipes: Recipe[]) => void;
   updateRecipeDisplaySettings: (selectedTags: string[]) => void;
 };
 
@@ -24,6 +27,7 @@ export type Steps = string;
 export type Notes = string;
 
 export type Recipe = {
+  id: string;
   title: string;
   key: string;
   description?: string;
@@ -38,7 +42,15 @@ export type Recipe = {
 };
 
 const useStore = create<Store>()((set) => ({
-  recipes: recipesJSON,
+  recipes: [],
+  isLoading: false,
+  error: null,
+  setInitialRecipes: (initialRecipes: Recipe[]) =>
+    set({ recipes: initialRecipes }),
+  fetchInitialRecipes: async () => {
+    set({ isLoading: true, error: null });
+  },
+
   updateRecipeDisplaySettings: (selectedTags: string[]) => {
     set((state: Store) => {
       // Update display property of recipes

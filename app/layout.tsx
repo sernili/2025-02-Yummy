@@ -3,6 +3,9 @@ import { Inter, Knewave, Caveat } from "next/font/google";
 import "@app/globals.css";
 import Header from "@components/global/header";
 import Footer from "@components/global/footer";
+import { Recipe } from "@store/recipes";
+import { db } from "@/utils/firebase-server";
+import ClientStoreInitializer from "@/components/utils/clientStoreInitializer";
 
 // Fonts
 const inter = Inter({
@@ -29,12 +32,29 @@ export const metadata: Metadata = {
   description: "Recipes and Meal Planner",
 };
 
+// Server - Recipe Initilization
+async function getInitialRecipes(): Promise<Recipe[]> {
+  try {
+    const recipesSnapshot = await db.collection("recipes").get();
+    const recipesData: Recipe[] = [];
+    recipesSnapshot.forEach((doc) => {
+      recipesData.push({ id: doc.id, ...doc.data() } as Recipe);
+    });
+    return recipesData;
+  } catch (error) {
+    console.error("Error fetching initial recipes from Firebase:", error);
+    return [];
+  }
+}
+
 // RootLayout
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialRecipes = await getInitialRecipes();
+
   return (
     <html
       lang="en"
@@ -47,7 +67,9 @@ export default function RootLayout({
       >
         <div className="h-fit w-full max-w-[80rem] p-[min(1rem,_8%)]">
           <Header />
-          {children}
+          <ClientStoreInitializer initialRecipes={initialRecipes}>
+            {children}
+          </ClientStoreInitializer>
         </div>
         <Footer />
       </body>
