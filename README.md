@@ -16,7 +16,7 @@ Click [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1
 
 - General
   - [ ] Darkmode
-  - [ ] Accounts/ Login/ Database
+  - [ ] Accounts/ Login
   - [ ] Search
     - [ ] By category (recipe, ingredient)
     - [ ] Autocomplte/ Suggestions
@@ -25,10 +25,15 @@ Click [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1
   - [x] List of all available recipes
   - [x] Filter by Tag
   - [x] Click to go to recipe
+  - [ ] Editing
+    - [x] Store Recipes in Database
+    - [ ] Ability to Add Recipes
+    - [ ] Ability to Delete Recipes
   - [ ] Add URL interactivity
-  - [ ] Add recipes
   - [ ] Adjust sorting rules
   - [ ] Favorites
+    - [ ] Ability to star a recipe
+    - [ ] Ability to filter by starred recipes
 - Recipe Detail Page
   - [ ] Upload Images
   - [ ] Edit Recipe
