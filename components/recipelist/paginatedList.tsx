@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import useStore from "../../store/recipes";
-import { Recipe } from "@store/recipes";
+import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
-import useRecipeFilters from "@hooks/useRecipeFilters";
-import RecipeList from "@components/recipelist/recipeList";
+import useRecipeFilters from "@/hooks/useRecipeFilters";
+import RecipeList from "@/components/recipelist/recipeList";
 import { useSearchParams } from "next/navigation";
 
 export function PaginatedRecipeList({

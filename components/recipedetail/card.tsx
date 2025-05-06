@@ -1,6 +1,6 @@
 "use client";
 
-import useStore, { Recipe } from "@store/recipes";
+import useStore, { Recipe } from "@/store/recipes";
 import Header from "./header";
 import Tags from "./tags";
 

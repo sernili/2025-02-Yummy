@@ -1,4 +1,4 @@
-import { Recipe } from "@store/recipes";
+import { Recipe } from "@/store/recipes";
 
 export default function Header({ recipe }: { recipe: Recipe }) {
   return (

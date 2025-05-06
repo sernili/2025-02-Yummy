@@ -1,4 +1,4 @@
-import type { Notes } from "@store/recipes";
+import type { Notes } from "@/store/recipes";
 
 export default function Notes({ notes }: { notes: Notes }) {
   return (

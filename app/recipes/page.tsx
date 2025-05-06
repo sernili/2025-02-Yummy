@@ -1,6 +1,6 @@
-import Banner from "@components/global/banner";
-import { PaginatedRecipeList } from "@components/recipelist/paginatedList";
-import TagList from "@components/recipelist/tagList";
+import Banner from "@/components/global/banner";
+import { PaginatedRecipeList } from "@/components/recipelist/paginatedList";
+import TagList from "@/components/recipelist/tagList";
 import { Suspense } from "react";
 
 export default async function Page() {

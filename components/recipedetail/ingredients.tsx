@@ -1,4 +1,4 @@
-import type { Ingredients } from "@store/recipes";
+import type { Ingredients } from "@/store/recipes";
 
 export default function Ingredients({
   ingredients,

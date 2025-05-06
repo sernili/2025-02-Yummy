@@ -1,6 +1,6 @@
 "use client";
 
-import banner from "@public/banner.png";
+import banner from "@/public/banner.png";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 

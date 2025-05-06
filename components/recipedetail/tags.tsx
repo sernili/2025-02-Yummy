@@ -1,4 +1,4 @@
-import { Tag } from "@store/recipes";
+import { Tag } from "@/store/recipes";
 
 export default function Tags({ tags }: { tags: Tag[] }) {
   return (

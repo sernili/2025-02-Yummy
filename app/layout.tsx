@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Knewave, Caveat } from "next/font/google";
-import "@app/globals.css";
-import Header from "@components/global/header";
-import Footer from "@components/global/footer";
-import { Recipe } from "@store/recipes";
+import "@/app/globals.css";
+import Header from "@/components/global/header";
+import Footer from "@/components/global/footer";
+import { Recipe } from "@/store/recipes";
 import { db } from "@/utils/firebase-server";
 import ClientStoreInitializer from "@/components/utils/clientStoreInitializer";
 

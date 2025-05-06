@@ -1,4 +1,4 @@
-import RecipeCard from "@components/recipedetail/card";
+import RecipeCard from "@/components/recipedetail/card";
 
 type Params = Promise<{ slug: string }>;
 

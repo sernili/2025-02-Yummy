@@ -12,30 +12,9 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@app/*": [
-        "app/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@components/*": [
-        "components/*"
-      ],
-      "@store/*": [
-        "store/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ]
+      "@/*": ["./*"]
     },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "incremental": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -57,8 +36,5 @@
     "public/**/*",
     "hooks"
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
