@@ -88,6 +88,10 @@ export function PaginatedRecipeList({
     const recipesChanged =
       JSON.stringify(prevAllRecipes.current) !== JSON.stringify(allRecipes);
 
+    console.log("recipes changed: ", recipesChanged);
+    console.log("prev: ", prevAllRecipes.current);
+    console.log("all: ", allRecipes);
+
     if (recipesChanged) {
       updatePagination(Number(itemOffset));
       prevAllRecipes.current = allRecipes;
