@@ -75,12 +75,6 @@ export function PaginatedRecipeList({
 
   // Side Effects ----------------------------------------------
 
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    updatePagination(Number(itemOffset));
-  }, []);
-
   useEffect(() => {
     console.log("currentPage changed", currentPage);
   }, [currentPage]);
@@ -88,16 +82,22 @@ export function PaginatedRecipeList({
   useEffect(() => {
     console.log("allRecipes changed");
 
-    // TODO: implement working deep compare
-    // deep compare to keep initial itemOffset when values change initially
-    // if (JSON.stringify(allRecipes) !== JSON.stringify(prevAllRecipes.current)) {
-    updatePagination(DEFAULT_ITEM_OFFSET);
-    prevAllRecipes.current = allRecipes;
-    // }
+    const recipesChanged =
+      JSON.stringify(prevAllRecipes.current) !== JSON.stringify(allRecipes);
+
+    if (recipesChanged) {
+      updatePagination(Number(itemOffset));
+      prevAllRecipes.current = allRecipes;
+    }
   }, [allRecipes]);
 
   useEffect(() => {
+    console.log("itemOffset - before Timeout: ", itemOffset);
+
     const timeoutId = setTimeout(() => {
+      console.log("setFilters - paginatedList", itemOffset);
+      console.log("itemOffset - in Timeout: ", itemOffset);
+
       setFilters({ tags, itemOffset });
     }, 500);
 
@@ -132,6 +132,10 @@ export function PaginatedRecipeList({
       newEndOffset,
       newRecipesToDisplay,
     );
+
+    console.log("Corrected offset: ", correctedItemOffset);
+    console.log("Corrected offset - type: ", typeof correctedItemOffset);
+    console.log("Corrected offset - string: ", correctedItemOffset.toString());
 
     setItemOffset(correctedItemOffset.toString());
     setCurrentPage(newCurrPage);

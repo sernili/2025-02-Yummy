@@ -23,6 +23,7 @@ export default function TagList() {
     const timeoutId = setTimeout(() => {
       const tags: string = selectedTags.join(",");
 
+      console.log("setFilters - tagList", itemOffset);
       setFilters({ tags, itemOffset });
     }, 500);
 
