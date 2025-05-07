@@ -6,7 +6,6 @@ import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/hooks/useRecipeFilters";
 import RecipeList from "@/components/recipelist/recipeList";
-import { useSearchParams } from "next/navigation";
 
 export function PaginatedRecipeList({
   itemsPerPage,
@@ -76,8 +75,8 @@ export function PaginatedRecipeList({
   // Side Effects ----------------------------------------------
 
   useEffect(() => {
-    console.log("currentPage changed", currentPage);
-  }, [currentPage]);
+    console.log("Recipes to Display: ", recipesToDisplay);
+  }, [recipesToDisplay]);
 
   useEffect(() => {
     console.log("allRecipes changed");
