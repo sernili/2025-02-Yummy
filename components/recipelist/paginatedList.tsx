@@ -41,7 +41,12 @@ export function PaginatedRecipeList({
     newItemOffset: number,
     newEndOffset: number,
     newRecipesToDisplay: Recipe[] = recipesToDisplay,
-  ) => [...newRecipesToDisplay.slice(newItemOffset, newEndOffset)];
+  ) => {
+    console.log("newItemOffset: ", newItemOffset);
+    console.log("newEndOffset: ", newEndOffset);
+
+    return [...newRecipesToDisplay.slice(newItemOffset, newEndOffset)];
+  };
 
   const getCurrentPage = (newItemOffset: number) =>
     Math.floor(newItemOffset / itemsPerPage);
