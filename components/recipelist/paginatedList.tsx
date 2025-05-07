@@ -85,6 +85,12 @@ export function PaginatedRecipeList({
   }, [recipesToDisplay, recipesForCurrPage]);
 
   useEffect(() => {
+    if (allRecipes.length > 0) {
+      updatePagination(Number(itemOffset));
+    }
+  }, []);
+
+  useEffect(() => {
     const recipesChanged =
       JSON.stringify(prevAllRecipes.current) !== JSON.stringify(allRecipes);
 
