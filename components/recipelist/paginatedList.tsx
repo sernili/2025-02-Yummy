@@ -76,7 +76,8 @@ export function PaginatedRecipeList({
 
   useEffect(() => {
     console.log("Recipes to Display: ", recipesToDisplay);
-  }, [recipesToDisplay]);
+    console.log("Recipes For Curr Page: ", recipesForCurrPage);
+  }, [recipesToDisplay, recipesForCurrPage]);
 
   useEffect(() => {
     console.log("allRecipes changed");
