@@ -13,7 +13,6 @@ if (!serviceAccountKeyString) {
 
 let serviceAccount;
 try {
-  console.log("SERVICE ACCOUNT: ", serviceAccountKeyString);
   serviceAccount = JSON.parse(serviceAccountKeyString);
 } catch (error) {
   console.error("Error parsing FIREBASE_SERVICE_ACCOUNT_KEY:", serviceAccount);
