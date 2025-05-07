@@ -47,6 +47,7 @@ const useStore = create<Store>()((set) => ({
   error: null,
   setInitialRecipes: (initialRecipes: Recipe[]) =>
     set({ recipes: initialRecipes }),
+
   fetchInitialRecipes: async () => {
     set({ isLoading: true, error: null });
   },
@@ -54,7 +55,7 @@ const useStore = create<Store>()((set) => ({
   updateRecipeDisplaySettings: (selectedTags: string[]) => {
     set((state: Store) => {
       // Update display property of recipes
-      const newRecipes: Recipe[] = state.recipes.map((recipe) => ({
+      const updateRecipes: Recipe[] = state.recipes.map((recipe) => ({
         ...recipe,
         display:
           selectedTags.length === 0 ||
@@ -64,19 +65,16 @@ const useStore = create<Store>()((set) => ({
       }));
 
       // Sort recipes alphabetically
-      newRecipes.sort((a, b) => a.title.localeCompare(b.title));
+      updateRecipes.sort((a, b) => a.title.localeCompare(b.title));
 
       // Sort recipe tags alphabetically
-      newRecipes.forEach((recipe) => {
+      updateRecipes.forEach((recipe) => {
         recipe.tags?.sort((a, b) => a.localeCompare(b));
       });
 
-      console.log("selectedTags", selectedTags);
-
-      console.log("newRecipes", newRecipes);
-
       return {
-        recipes: newRecipes,
+        ...state,
+        recipes: updateRecipes,
       };
     });
   },

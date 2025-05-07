@@ -80,8 +80,6 @@ export function PaginatedRecipeList({
   }, [recipesToDisplay, recipesForCurrPage]);
 
   useEffect(() => {
-    console.log("allRecipes changed");
-
     const recipesChanged =
       JSON.stringify(prevAllRecipes.current) !== JSON.stringify(allRecipes);
 
@@ -92,12 +90,7 @@ export function PaginatedRecipeList({
   }, [allRecipes]);
 
   useEffect(() => {
-    console.log("itemOffset - before Timeout: ", itemOffset);
-
     const timeoutId = setTimeout(() => {
-      console.log("setFilters - paginatedList", itemOffset);
-      console.log("itemOffset - in Timeout: ", itemOffset);
-
       setFilters({ tags, itemOffset });
     }, 500);
 
@@ -132,10 +125,6 @@ export function PaginatedRecipeList({
       newEndOffset,
       newRecipesToDisplay,
     );
-
-    console.log("Corrected offset: ", correctedItemOffset);
-    console.log("Corrected offset - type: ", typeof correctedItemOffset);
-    console.log("Corrected offset - string: ", correctedItemOffset.toString());
 
     setItemOffset(correctedItemOffset.toString());
     setCurrentPage(newCurrPage);

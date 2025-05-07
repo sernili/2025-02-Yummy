@@ -15,6 +15,7 @@ export default function TagList() {
   const [allTags, setAllTags] = useState<string[]>([]);
 
   useLayoutEffect(() => {
+    // TODO: global variable for recipe change?
     const alltags = sortTags(getTagsFromRecipes(), selectedTags);
     setAllTags(alltags);
   }, [recipes]);
@@ -23,7 +24,6 @@ export default function TagList() {
     const timeoutId = setTimeout(() => {
       const tags: string = selectedTags.join(",");
 
-      console.log("setFilters - tagList", itemOffset);
       setFilters({ tags, itemOffset });
     }, 500);
 
