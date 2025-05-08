@@ -4,7 +4,7 @@ import path from "path";
 
 async function seedDatabase() {
   try {
-    const recipesPath = path.join(process.cwd(), "data", "recipes.json");
+    const recipesPath = path.join(process.cwd(), "utils/data", "recipes.json");
 
     const recipesBuffer = await fs.readFile(recipesPath, "utf-8");
     const recipesData = JSON.parse(recipesBuffer);
