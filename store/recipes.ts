@@ -1,12 +1,18 @@
 import { create } from "zustand";
 
+// Put all type declarations in one place
 type Store = {
-  recipes: Recipe[];
   isLoading: boolean;
   error: string | null;
+
+  recipes: Recipe[];
   fetchInitialRecipes: () => Promise<void>;
   setInitialRecipes: (initialRecipes: Recipe[]) => void;
-  updateRecipeDisplaySettings: (selectedTags: string[]) => void;
+  //updateRecipeDisplay: (clickedTags: Tag[]) => void;
+
+  tags: Tag[];
+  // updateTagsFromRecipes: (recipes: Recipe[]) => void;
+  setTags: (updatedTags: Tag[]) => void;
 };
 
 export type Ingredients = {
@@ -20,7 +26,11 @@ export type CookingTime = {
   number: number;
 };
 
-export type Tag = string;
+export type Tag = {
+  name: string;
+  key: string;
+  selected: boolean;
+};
 
 export type Steps = string;
 
@@ -35,16 +45,18 @@ export type Recipe = {
   cookingTime?: CookingTime;
   people?: number;
   imageURL?: string;
-  display: boolean;
+  display: boolean; // TODO: remove - handle based on rules in the correct place
   steps: Steps[];
   notes?: Notes;
   ingredients: Ingredients[];
 };
 
 const useStore = create<Store>()((set) => ({
-  recipes: [],
   isLoading: false,
   error: null,
+
+  // Recipes --------------------
+  recipes: [],
   setInitialRecipes: (initialRecipes: Recipe[]) =>
     set({ recipes: initialRecipes }),
 
@@ -52,32 +64,68 @@ const useStore = create<Store>()((set) => ({
     set({ isLoading: true, error: null });
   },
 
-  updateRecipeDisplaySettings: (selectedTags: string[]) => {
-    set((state: Store) => {
-      // Update display property of recipes
-      const updateRecipes: Recipe[] = state.recipes.map((recipe) => ({
-        ...recipe,
-        display:
-          selectedTags.length === 0 ||
-          (!!recipe.tags &&
-            recipe.tags?.length > 0 &&
-            selectedTags.every((tagName) => recipe.tags?.includes(tagName))),
-      }));
+  // TODO: update logic
+  // TODO: push changes to the database!
+  // updateRecipeDisplay: (clickedTags) => {
+  //   // go through each
 
-      // Sort recipes alphabetically
-      updateRecipes.sort((a, b) => a.title.localeCompare(b.title));
+  //   set((state: Store) => {
+  //     clickedTags.forEach(tag => {
+  //       state.recipes.
+  //     });
 
-      // Sort recipe tags alphabetically
-      updateRecipes.forEach((recipe) => {
-        recipe.tags?.sort((a, b) => a.localeCompare(b));
-      });
+  // const updatedRecipes: Recipe[] = state.recipes.map((recipe) => ({
+  //   ...recipe,
+  //   display: !clickedTag.selected,
+  // }));
 
-      return {
-        ...state,
-        recipes: updateRecipes,
-      };
-    });
-  },
+  // TODO: delete? Not needed?
+  // selectedTags.length === 0 ||
+  //           (!!recipe.tags &&
+  //             recipe.tags?.length > 0 &&
+  //             selectedTags.every((tagName) => recipe.tags?.includes(tagName))),
+
+  // Sort recipes alphabetically
+  // updateRecipes.sort((a, b) => a.title.localeCompare(b.title));
+
+  // Sort recipe tags alphabetically
+  // updateRecipes.forEach((recipe) => {
+  //   recipe.tags?.sort((a, b) => a.localeCompare(b));
+  // });
+
+  //   return {
+  //     ...state,
+  //     recipes: updatedRecipes,
+  //   };
+  // });
+  // },
+
+  // Tags --------------------
+  tags: [],
+  // TODO: remove
+  // updateTagsFromRecipes: (recipes) =>
+  //   set((state) => ({
+  //     ...state,
+  //     tags: getTagsFromRecipes(recipes),
+  //   })),
+  setTags: (updatedTags) =>
+    set((state) => ({
+      ...state,
+      tags: updatedTags,
+    })),
 }));
+
+// Helpers --------------------
+
+// const getNewSelectedTags = (clickedTag: string) => {
+//   if (selectedTags.includes(clickedTag)) {
+//     return selectedTags.filter((tag) => tag !== clickedTag);
+//   }
+
+//   return [...filterEmptyString(selectedTags), clickedTag];
+// };
+
+const filterEmptyString = (array: string[]) =>
+  array.filter((element) => element !== "");
 
 export default useStore;

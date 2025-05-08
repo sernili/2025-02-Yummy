@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const tagList = recipe?.tags?.map((tag) => tag.name).join(", ");
+
   return (
     <Link href={`/recipes/${recipe.title}`}>
       <div className="flex h-full w-full flex-col rounded-lg bg-white shadow-lg">
@@ -23,12 +25,12 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
           </div>
 
           <p className="text-tertiary flex flex-wrap gap-2 text-sm">
-            {recipe?.tags && recipe.tags.length > 0 && (
+            {tagList && (
               <span
                 className="relative inline-block w-fit min-w-0 overflow-hidden pr-2 text-pretty text-ellipsis whitespace-nowrap after:absolute after:right-0 after:bg-white after:content-['|'] last:after:content-none"
-                title={(recipe.tags || []).join(", ")}
+                title={tagList}
               >
-                {(recipe.tags || []).join(", ")}
+                {tagList}
               </span>
             )}
 

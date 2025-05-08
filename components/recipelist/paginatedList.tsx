@@ -14,7 +14,6 @@ export function PaginatedRecipeList({
 }) {
   // Getters and Constants ----------------------------------------------
 
-  const DEFAULT_ITEM_OFFSET = 0;
   const DEFAULT_PAGE_INDEX = 0;
 
   const getPageCount = (newRecipesToDisplay: Recipe[]) =>
@@ -28,7 +27,7 @@ export function PaginatedRecipeList({
 
     // Sort recipe tags alphabetically
     recipes.forEach((recipe) => {
-      recipe.tags?.sort((a, b) => a.localeCompare(b));
+      recipe.tags?.sort((a, b) => a.name.localeCompare(b.name));
     });
 
     return recipes;
