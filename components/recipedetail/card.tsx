@@ -1,6 +1,6 @@
 "use client";
 
-import useStore, { Recipe } from "@/store/recipes";
+import useRecipeStore, { Recipe } from "@/store/recipes";
 import Header from "./header";
 import Tags from "./tags";
 
@@ -9,7 +9,7 @@ import Ingredients from "./ingredients";
 import Notes from "./notes";
 
 export default function RecipeCard({ slug }: { slug: string }) {
-  const { recipes } = useStore();
+  const { recipes } = useRecipeStore();
   const titleFromSlug = slug.replaceAll("%20", " ");
 
   const recipe = recipes.find(

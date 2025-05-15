@@ -6,6 +6,7 @@ import Footer from "@/components/global/footer";
 import { Recipe } from "@/store/recipes";
 import { db } from "@/utils/firebase-server";
 import ClientStoreInitializer from "@/components/utils/clientStoreInitializer";
+import { RecipeTag } from "@/store/tags";
 
 // Fonts
 const inter = Inter({
@@ -47,6 +48,21 @@ async function getInitialRecipes(): Promise<Recipe[]> {
   }
 }
 
+// Server - Tag Initilization
+async function getInitialTags(): Promise<RecipeTag[]> {
+  try {
+    const tagSnapshot = await db.collection("recipeTags").get(); // TODO: put strings for DB names in one file and use everywhere
+    const tagData: RecipeTag[] = [];
+    tagSnapshot.forEach((doc) => {
+      tagData.push({ id: doc.id, ...doc.data() } as RecipeTag);
+    });
+    return tagData;
+  } catch (error) {
+    console.error("Error fetching initial recipes from Firebase:", error);
+    return [];
+  }
+}
+
 // RootLayout
 export default async function RootLayout({
   children,
@@ -54,6 +70,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const initialRecipes = await getInitialRecipes();
+  const initialTags = await getInitialTags();
 
   return (
     <html
@@ -67,7 +84,10 @@ export default async function RootLayout({
       >
         <div className="h-fit w-full max-w-[80rem] p-[min(1rem,_8%)]">
           <Header />
-          <ClientStoreInitializer initialRecipes={initialRecipes}>
+          <ClientStoreInitializer
+            initialRecipes={initialRecipes}
+            initialTags={initialTags}
+          >
             {children}
           </ClientStoreInitializer>
         </div>
