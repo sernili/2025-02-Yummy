@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seedRecipes": "node scripts/seedRecipes.js"
+    "resetRecipes": "node utils/scripts/deleteAllEntries.js target=recipes && node utils/scripts/seedRecipes.js && node utils/scripts/linkRecipesAndTags.js"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.8",

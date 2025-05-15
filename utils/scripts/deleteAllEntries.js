@@ -1,7 +1,7 @@
 import { admin, db } from "./firebaseAdmin.js";
+import { getCliArgumentValue } from "./utils.js";
 
-// Adjust collection name as needed
-const collectionName = "recipes";
+const collectionName = getCliArgumentValue("target");
 
 async function deleteDuplicateDocuments() {
   try {
@@ -17,7 +17,7 @@ async function deleteDuplicateDocuments() {
       console.log(`Found ${documentsToDelete.length} documents. Deleting...`);
       // Use Promise.all to perform deletions concurrently for better efficiency
       await Promise.all(documentsToDelete.map((docRef) => docRef.delete()));
-      console.log("Documents deleted successfully!");
+      console.log("All documents deleted successfully!");
     } else {
       console.log("No documents found.");
     }
