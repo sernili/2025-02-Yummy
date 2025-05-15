@@ -33,36 +33,6 @@ export const metadata: Metadata = {
   description: "Recipes and Meal Planner",
 };
 
-// Server - Recipe Initilization
-async function getInitialRecipes(): Promise<Recipe[]> {
-  try {
-    const recipesSnapshot = await db.collection("recipes").get();
-    const recipesData: Recipe[] = [];
-    recipesSnapshot.forEach((doc) => {
-      recipesData.push({ id: doc.id, ...doc.data() } as Recipe);
-    });
-    return recipesData;
-  } catch (error) {
-    console.error("Error fetching initial recipes from Firebase:", error);
-    return [];
-  }
-}
-
-// Server - Tag Initilization
-async function getInitialTags(): Promise<RecipeTag[]> {
-  try {
-    const tagSnapshot = await db.collection("recipeTags").get(); // TODO: put strings for DB names in one file and use everywhere
-    const tagData: RecipeTag[] = [];
-    tagSnapshot.forEach((doc) => {
-      tagData.push({ id: doc.id, ...doc.data() } as RecipeTag);
-    });
-    return tagData;
-  } catch (error) {
-    console.error("Error fetching initial recipes from Firebase:", error);
-    return [];
-  }
-}
-
 // RootLayout
 export default async function RootLayout({
   children,
@@ -95,4 +65,36 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+// Server - Recipe Initilization
+async function getInitialRecipes(): Promise<Recipe[]> {
+  try {
+    const recipesSnapshot = await db.collection("recipes").get();
+    const recipesData: Recipe[] = [];
+
+    //TODO: fix overwhelm
+    // recipesSnapshot.forEach((doc) => {
+    //   recipesData.push({ id: doc.id, ...doc.data() } as Recipe);
+    // });
+    return recipesData;
+  } catch (error) {
+    console.error("Error fetching initial recipes from Firebase:", error);
+    return [];
+  }
+}
+
+// Server - Tag Initilization
+async function getInitialTags(): Promise<RecipeTag[]> {
+  try {
+    const tagSnapshot = await db.collection("recipeTags").get(); // TODO: put strings for DB names in one file and use everywhere
+    const tagData: RecipeTag[] = [];
+    tagSnapshot.forEach((doc) => {
+      tagData.push({ id: doc.id, ...doc.data() } as RecipeTag);
+    });
+    return tagData;
+  } catch (error) {
+    console.error("Error fetching initial recipes from Firebase:", error);
+    return [];
+  }
 }

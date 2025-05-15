@@ -7,10 +7,13 @@ export type RecipeTag = {
   uri: string;
 };
 
+export type SelectedTagId = string;
+
 type TagState = {
   tags: RecipeTag[];
-  selectedTagIds: string[];
+  selectedTagIds: string[]; // TODO: turn into its own type
   setInitialTags: (initialRecipes: RecipeTag[]) => void;
+  setSelectedTagIds: (newSelectedTagIds: SelectedTagId[]) => void;
 };
 
 const useTagStore = create<TagState>((set, get) => ({
@@ -19,6 +22,9 @@ const useTagStore = create<TagState>((set, get) => ({
 
   setInitialTags: (initialRecipeTags: RecipeTag[]) =>
     set({ tags: initialRecipeTags }),
+
+  setSelectedTagIds: (newSelectedTagIds: SelectedTagId[]) =>
+    set(() => ({ selectedTagIds: newSelectedTagIds })),
 }));
 
 export default useTagStore;

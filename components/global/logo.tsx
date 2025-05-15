@@ -3,7 +3,7 @@
 import useStore from "@/store/global";
 
 export default function Logo() {
-  const { showNavbar } = useStore();
+  const { showNavbar } = useStore(); // TODO: Rename general store
   const logoRef = showNavbar ? "/" : "/recipes";
 
   return (

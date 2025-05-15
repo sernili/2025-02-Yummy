@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import useStore from "../../store/recipes";
+import useRecipeStore from "../../store/recipes";
 import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/hooks/useRecipeFilters";
@@ -27,7 +27,7 @@ export function PaginatedRecipeList({
 
     // Sort recipe tags alphabetically
     recipes.forEach((recipe) => {
-      recipe.tags?.sort((a, b) => a.name.localeCompare(b.name));
+      recipe.tags?.sort((a, b) => a.label.localeCompare(b.label));
     });
 
     return recipes;
@@ -52,7 +52,7 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes } = useStore();
+  const { recipes: allRecipes } = useRecipeStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
     getRecipesToDisplay(getSortedRecipes(allRecipes)),
@@ -98,6 +98,8 @@ export function PaginatedRecipeList({
 
     return () => clearTimeout(timeoutId);
   }, [itemOffset]);
+
+  useEffect(() => {});
 
   // Event Handlers ----------------------------------------------
 
