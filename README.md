@@ -8,9 +8,10 @@ A recipe and meal planning app created by Lisa Sachse in 2025
 - Tailwind
 - Zustand
 
-## Figma Template:
+## Links:
 
-Click [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1-25&t=TCittuwd7iTDHRuu-1) to see Figma Template
+Figma Template: [here](https://www.figma.com/design/1cZE90KxKWae4I729raoW5/Yummy?node-id=1-25&t=TCittuwd7iTDHRuu-1)
+Demo Website: [here](https://yummy-lovat-beta.vercel.app/recipes?itemOffset=0)
 
 ## Features:
 
