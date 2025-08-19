@@ -3,10 +3,11 @@ import { Inter, Knewave, Caveat } from "next/font/google";
 import "@/app/globals.css";
 import Header from "@/components/global/header";
 import Footer from "@/components/global/footer";
-import { Recipe } from "@/store/recipes";
+import { Recipe, RecipeDatabase } from "@/store/recipes";
 import { db } from "@/utils/firebase-server";
 import ClientStoreInitializer from "@/components/utils/clientStoreInitializer";
 import { RecipeTag } from "@/store/tags";
+import { DocumentReference } from "firebase-admin/firestore";
 
 // Fonts
 const inter = Inter({
@@ -39,8 +40,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const initialRecipes = await getInitialRecipes();
   const initialTags = await getInitialTags();
+  const initialRecipes = await getInitialRecipes();
 
   return (
     <html
@@ -71,17 +72,55 @@ export default async function RootLayout({
 async function getInitialRecipes(): Promise<Recipe[]> {
   try {
     const recipesSnapshot = await db.collection("recipes").get();
-    const recipesData: Recipe[] = [];
+    const recipeData: Recipe[] = []; // simplified version for use in project vs. RecipeDatabase
 
-    //TODO: fix overwhelm
-    // recipesSnapshot.forEach((doc) => {
-    //   recipesData.push({ id: doc.id, ...doc.data() } as Recipe);
-    // });
-    return recipesData;
+    for (const recipeDoc of recipesSnapshot.docs) {
+      const tagRefs = recipeDoc?.data()?.tagRefs;
+      let tagData: RecipeTag | undefined;
+      if (tagRefs) {
+        console.log("tagRefs: ", tagRefs);
+        const tagData: RecipeTag[] | undefined = await getTagData(tagRefs);
+      }
+
+      const simplifiedRecipeData = recipeDoc.data();
+      delete simplifiedRecipeData.tagRefs;
+      delete simplifiedRecipeData.tags;
+
+      recipeData.push({ ...simplifiedRecipeData, tagData });
+    }
+
+    return recipeData;
   } catch (error) {
     console.error("Error fetching initial recipes from Firebase:", error);
     return [];
   }
+}
+
+async function getTagData(tagRefs: string[]): Promise<RecipeTag[]> {
+  // TODO: fix types
+  const tagPromises = tagRefs.map((ref) => {
+    return db
+      .collection("recipeTags")
+      .doc(ref._path.segments[ref._path.segments.length - 1])
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return doc?.data();
+        } else {
+          console.log("No such document!");
+          return undefined;
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+        return undefined;
+      });
+  });
+
+  const tagData: RecipeTag[] = await Promise.all(tagPromises);
+  console.log("TAGDATA: ", tagData);
+
+  return tagData;
 }
 
 // Server - Tag Initilization

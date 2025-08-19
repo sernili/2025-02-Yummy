@@ -23,12 +23,13 @@ export type Steps = string;
 
 export type Notes = string;
 
-export type Recipe = {
+export type RecipeDatabase = {
   id: string;
   title: string;
   key: string;
   description?: string;
-  tags?: RecipeTag[];
+  tags: string[];
+  tagRefs: string[];
   cookingTime?: CookingTime;
   people?: number;
   imageURL?: string;
@@ -37,6 +38,8 @@ export type Recipe = {
   notes?: Notes;
   ingredients: Ingredients[];
 };
+
+export type Recipe = Omit<RecipeDatabase, "tags" | "tagRefs">;
 
 const useRecipeStore = create<RecipeStore>()((set) => ({
   recipes: [],
