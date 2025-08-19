@@ -17,9 +17,9 @@ async function linkRecipesAndTags() {
     // Get updated recipes (update promises)
     recipeSnapshot.forEach((recipeDoc) => {
       const recipeTags = recipeDoc.data().tags;
-      const recipeRef = recipeDoc.ref;
       const newRecipeTagRefs = [];
 
+      // Get Recipe Tag Refs for Recipe Ids
       if (!recipeTags || !Array.isArray(recipeTags) || !recipeTags.length > 0)
         return;
 
@@ -35,10 +35,17 @@ async function linkRecipesAndTags() {
         }
       });
 
-      updatePromises.push(recipeRef.update({ tags: newRecipeTagRefs }));
+      // Add update promise
+      const recipeRef = db.collection("recipes").doc(recipeDoc.id);
+
+      updatePromises.push(
+        recipeRef.update({
+          tagRefs: newRecipeTagRefs,
+        }),
+      );
     });
 
-    // Update recipes in database (update promises)
+    // Update recipes in database (process update promises)
     await Promise.all(updatePromises).then(() =>
       console.log(
         `Finished linking. Updated ${updatePromises.length} recipes.`,
