@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { RecipeTag } from "./tags";
+import { DocumentReference } from "firebase-admin/firestore";
 
 // Put all type declarations in one place
 type RecipeStore = {
@@ -23,13 +24,11 @@ export type Steps = string;
 
 export type Notes = string;
 
-export type RecipeDatabase = {
+type RecipeBaseProperties = {
   id: string;
   title: string;
   key: string;
   description?: string;
-  tags: string[];
-  tagRefs: string[];
   cookingTime?: CookingTime;
   people?: number;
   imageURL?: string;
@@ -39,7 +38,14 @@ export type RecipeDatabase = {
   ingredients: Ingredients[];
 };
 
-export type Recipe = Omit<RecipeDatabase, "tags" | "tagRefs">;
+export type RecipeDatabase = RecipeBaseProperties & {
+  tags: string[]; // e.g. ["00001", "00002"]
+  tagRefs: DocumentReference<RecipeTag>[]; // firestore reference to recipeTags docs
+};
+
+export type Recipe = RecipeBaseProperties & {
+  tagData: RecipeTag[] | undefined;
+};
 
 const useRecipeStore = create<RecipeStore>()((set) => ({
   recipes: [],

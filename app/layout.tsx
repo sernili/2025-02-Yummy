@@ -76,15 +76,19 @@ async function getInitialRecipes(): Promise<Recipe[]> {
 
     for (const recipeDoc of recipesSnapshot.docs) {
       const tagRefs = recipeDoc?.data()?.tagRefs;
-      let tagData: RecipeTag | undefined;
+
+      let tagData: RecipeTag[] | undefined;
       if (tagRefs) {
-        console.log("tagRefs: ", tagRefs);
-        const tagData: RecipeTag[] | undefined = await getTagData(tagRefs);
+        tagData = await getTagData(tagRefs);
+        console.log("TAGDATA: ", tagData);
       }
 
-      const simplifiedRecipeData = recipeDoc.data();
-      delete simplifiedRecipeData.tagRefs;
-      delete simplifiedRecipeData.tags;
+      const recipeDBData = recipeDoc.data() as RecipeDatabase;
+      const simplifiedRecipeData: Omit<Recipe, "tagData"> = (({
+        tags,
+        tagRefs,
+        ...rest
+      }) => rest)(recipeDBData);
 
       recipeData.push({ ...simplifiedRecipeData, tagData });
     }
@@ -96,12 +100,13 @@ async function getInitialRecipes(): Promise<Recipe[]> {
   }
 }
 
-async function getTagData(tagRefs: string[]): Promise<RecipeTag[]> {
-  // TODO: fix types
+async function getTagData(
+  tagRefs: DocumentReference<RecipeTag>[],
+): Promise<RecipeTag[]> {
   const tagPromises = tagRefs.map((ref) => {
     return db
       .collection("recipeTags")
-      .doc(ref._path.segments[ref._path.segments.length - 1])
+      .doc(ref.id)
       .get()
       .then((doc) => {
         if (doc.exists) {
@@ -117,8 +122,7 @@ async function getTagData(tagRefs: string[]): Promise<RecipeTag[]> {
       });
   });
 
-  const tagData: RecipeTag[] = await Promise.all(tagPromises);
-  console.log("TAGDATA: ", tagData);
+  const tagData: RecipeTag[] = (await Promise.all(tagPromises)) as RecipeTag[];
 
   return tagData;
 }
