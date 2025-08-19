@@ -80,7 +80,6 @@ async function getInitialRecipes(): Promise<Recipe[]> {
       let tagData: RecipeTag[] | undefined;
       if (tagRefs) {
         tagData = await getTagData(tagRefs);
-        console.log("TAGDATA: ", tagData);
       }
 
       const recipeDBData = recipeDoc.data() as RecipeDatabase;
