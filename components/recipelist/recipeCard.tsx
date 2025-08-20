@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const tagList = recipe?.tags?.map((tag) => tag.name).join(", ");
+  const tagList = recipe?.tagData?.map((tag) => tag.label).join(", ");
 
   return (
     <Link href={`/recipes/${recipe.title}`}>

@@ -23,7 +23,7 @@ export default function RecipeCard({ slug }: { slug: string }) {
 
         <div className="my-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="md:col-span-2 lg:col-span-3">
-            {recipe.tags && <Tags tags={recipe.tags} />}
+            {recipe.tagData && <Tags tags={recipe.tagData} />}
           </div>
 
           <div className="lg:col-span-2">
