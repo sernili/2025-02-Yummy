@@ -7,7 +7,7 @@ import useTagStore, { RecipeTag, SelectedTagId } from "@/store/tags";
 export default function TagList() {
   const { tags, selectedTagIds, setSelectedTagIds } = useTagStore();
 
-  const [sortedTags, setLocalTags] = useState<RecipeTag[]>(
+  const [sortedTags, setSortedTags] = useState<RecipeTag[]>(
     sortTags(tags, selectedTagIds),
   );
   const [localSelectedTagIds, setLocalSelectedTagIds] =
@@ -16,34 +16,41 @@ export default function TagList() {
   const { filters, setFilters } = useRecipeFilters();
   const [itemOffset] = useState(filters.itemOffset);
 
-  // useLayoutEffect(() => {
-  //   setLocalTags(sortTags(tags, localSelectedTagIds));
-  // }, [tags]);
-
-  // useLayoutEffect(() => {
-  //   setLocalSelectedTagIds(selectedTagIds);
-  // }, [selectedTagIds]);
+  useEffect(() => {
+    setSortedTags(sortTags(tags, selectedTagIds));
+  }, [tags]);
 
   const handleClick = (clickedTag: RecipeTag) => {
-    const newSelectedTagIds: SelectedTagId[] = localSelectedTagIds;
-    const clickedTagIndex = localSelectedTagIds.indexOf(clickedTag.id);
+    const alreadySelected = localSelectedTagIds.includes(clickedTag.id);
+    let newSelectedTagIds: SelectedTagId[];
 
-    if (clickedTagIndex === -1) {
-      newSelectedTagIds.push(clickedTag.id);
+    if (alreadySelected) {
+      newSelectedTagIds = localSelectedTagIds.filter(
+        (id) => id !== clickedTag.id,
+      );
     } else {
-      delete newSelectedTagIds[clickedTagIndex];
+      newSelectedTagIds = [...localSelectedTagIds, clickedTag.id];
     }
 
-    // const tagsForFilters = sortedTags.map((tag) => tag.uri).join(",");
-    setLocalTags(sortTags(sortedTags, newSelectedTagIds));
+    // Update URL Filter Info
+    const tagsForFilters = sortedTags
+      .filter((tag) => newSelectedTagIds.includes(tag.id))
+      .map((tag) => tag.uri)
+      .join(",");
+    setFilters({ tags: tagsForFilters, itemOffset });
+
+    console.log("newSelectedTagIds: ", newSelectedTagIds);
+    console.log("localSelectedTagIds: ", localSelectedTagIds);
+
+    // Update Selected Tag Id Lists (Locally and in Store)
     setLocalSelectedTagIds(newSelectedTagIds);
     setSelectedTagIds(newSelectedTagIds);
-    // setFilters({ tags: tagsForFilters, itemOffset });
+    setSortedTags(sortTags(tags, newSelectedTagIds));
   };
 
   return (
     <div className="flex flex-wrap gap-1.5">
-      {tags.map((tag) => (
+      {sortedTags.map((tag) => (
         <button
           key={tag.id}
           onClick={() => handleClick(tag)}
@@ -72,11 +79,6 @@ const sortTags = (tags: RecipeTag[], selectedIds: string[]) => {
   const sortedOtherTags = otherTags.sort((a, b) =>
     a.label.localeCompare(b.label),
   );
-
-  // return [
-  //   ...filterEmptyString(sortedSelectedTags),
-  //   ...filterEmptyString(sortedOtherTags),
-  // ];
 
   return [...sortedSelectedTags, ...sortedOtherTags];
 };
