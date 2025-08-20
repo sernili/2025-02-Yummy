@@ -27,7 +27,7 @@ export function PaginatedRecipeList({
 
     // Sort recipe tags alphabetically
     recipes.forEach((recipe) => {
-      recipe.tags?.sort((a, b) => a.label.localeCompare(b.label));
+      recipe.tagData?.sort((a, b) => a.label.localeCompare(b.label));
     });
 
     return recipes;
