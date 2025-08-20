@@ -13,7 +13,7 @@ const DEFAULT_ITEM_OFFSET = "0";
 const DEFAULT_TAGS = "";
 
 // TODO: fix initial Filters - take old URL from before reload!
-// TODO: set initial selected Tag Ids from Filters in URL
+// TODO: set initial selected Tag Ids from Filters in URL - or in State?
 // TODO: fix actual filter functionality
 
 const useRecipeFilters = () => {
