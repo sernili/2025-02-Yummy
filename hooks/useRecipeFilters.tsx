@@ -1,7 +1,8 @@
 "use client";
 
+import useTagStore from "@/store/tags";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 export type RecipeFilters = {
   tags: string;
@@ -11,10 +12,18 @@ export type RecipeFilters = {
 const DEFAULT_ITEM_OFFSET = "0";
 const DEFAULT_TAGS = "";
 
+// TODO: fix initial Filters - take old URL from before reload!
+// TODO: set initial selected Tag Ids from Filters in URL
+// TODO: fix actual filter functionality
+
 const useRecipeFilters = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const { tags, selectedTagIds, setSelectedTagIds } = useTagStore();
+
+  console.log("searchParams: ", searchParams.get("tags"));
 
   const filters = useMemo(() => {
     return {
@@ -23,9 +32,21 @@ const useRecipeFilters = () => {
     };
   }, [searchParams]);
 
+  useEffect(() => {
+    const selectedTagNames = filters.tags.split(",");
+    const selectedTagIds = tags
+      .filter((tag) => selectedTagNames.includes(tag.uri))
+      .map((tag) => tag.id);
+
+    setSelectedTagIds(selectedTagIds);
+    console.log("CHANGE", filters.tags);
+  }, [filters.tags]);
+
   const setFilters = useCallback(
     (newFilters: RecipeFilters) => {
       const currentParams = new URLSearchParams(searchParams.toString());
+
+      console.log("newFilters: ", newFilters);
 
       Object.entries(newFilters).forEach(([key, value]) => {
         if (value) {
