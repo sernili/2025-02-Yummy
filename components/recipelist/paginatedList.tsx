@@ -6,6 +6,7 @@ import { Recipe } from "@/store/recipes";
 import ReactPaginate from "react-paginate";
 import useRecipeFilters from "@/hooks/useRecipeFilters";
 import RecipeList from "@/components/recipelist/recipeList";
+import useTagStore from "@/store/tags";
 
 export function PaginatedRecipeList({
   itemsPerPage,
@@ -52,7 +53,7 @@ export function PaginatedRecipeList({
 
   // Recipe Info ----------------------------------------------
 
-  const { recipes: allRecipes } = useRecipeStore();
+  const { recipes: allRecipes, updateRecipeDisplay } = useRecipeStore();
 
   const [recipesToDisplay, setRecipesToDisplay] = useState<Recipe[]>(
     getRecipesToDisplay(getSortedRecipes(allRecipes)),
@@ -64,6 +65,7 @@ export function PaginatedRecipeList({
   // Filter and Pagination Info ----------------------------------------------
 
   const { filters, setFilters } = useRecipeFilters();
+  const { selectedTagIds } = useTagStore();
 
   const [tags] = useState(filters.tags);
   const [itemOffset, setItemOffset] = useState(filters.itemOffset);
@@ -99,7 +101,9 @@ export function PaginatedRecipeList({
     return () => clearTimeout(timeoutId);
   }, [itemOffset]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    updateRecipeDisplay(selectedTagIds);
+  }, [selectedTagIds]);
 
   // Event Handlers ----------------------------------------------
 

@@ -40,9 +40,6 @@ export default function TagList() {
       .join(",");
     setFilters({ tags: tagsForFilters, itemOffset });
 
-    console.log("newSelectedTagIds: ", newSelectedTagIds);
-    console.log("localSelectedTagIds: ", localSelectedTagIds);
-
     // Update Selected Tag Id Lists (Locally and in Store)
     setLocalSelectedTagIds(newSelectedTagIds);
     setSelectedTagIds(newSelectedTagIds);

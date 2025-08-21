@@ -62,8 +62,4 @@ const useRecipeFilters = () => {
   return { filters, setFilters };
 };
 
-const getCorrectedFilters = (originalFilters: RecipeFilters) => {
-  // TODO: implement
-};
-
 export default useRecipeFilters;

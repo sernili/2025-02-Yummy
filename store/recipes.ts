@@ -2,11 +2,11 @@ import { create } from "zustand";
 import { RecipeTag } from "./tags";
 import { DocumentReference } from "firebase-admin/firestore";
 
-// Put all type declarations in one place
+// TODO: Put all type declarations in one place
 type RecipeStore = {
   recipes: Recipe[];
   setInitialRecipes: (initialRecipes: Recipe[]) => void;
-  //updateRecipeDisplay: (clickedTags: Tag[]) => void;
+  updateRecipeDisplay: (selectedTagIds: string[]) => void;
 };
 
 export type Ingredients = {
@@ -52,31 +52,20 @@ const useRecipeStore = create<RecipeStore>()((set) => ({
   setInitialRecipes: (initialRecipes: Recipe[]) =>
     set({ recipes: initialRecipes }),
 
-  // TODO: update logic
   // TODO: push changes to the database!
-  // updateRecipeDisplay: (tags) => {
-  // set((state: RecipeStore) => {
-  //   const updatedRecipes: Recipe[] = state.recipes.map((recipe) => ({
-  //     ...recipe,
-  //     display: !clickedTag.selected,
-  //   }));
-  // TODO: delete? Not needed?
-  // selectedTags.length === 0 ||
-  //           (!!recipe.tags &&
-  //             recipe.tags?.length > 0 &&
-  //             selectedTags.every((tagName) => recipe.tags?.includes(tagName))),
-  // Sort recipes alphabetically
-  // updateRecipes.sort((a, b) => a.title.localeCompare(b.title));
-  // Sort recipe tags alphabetically
-  // updateRecipes.forEach((recipe) => {
-  //   recipe.tags?.sort((a, b) => a.localeCompare(b));
-  // });
-  //   return {
-  //     ...state,
-  //     recipes: updatedRecipes,
-  //   };
-  // });
-  // },
+  updateRecipeDisplay: (selectedTagIds: string[]) => {
+    set((state: RecipeStore) => {
+      const updatedRecipes: Recipe[] = state.recipes.map((recipe) => ({
+        ...recipe,
+        display:
+          selectedTagIds.length === 0 ||
+          (recipe.tagData?.some((tag) => selectedTagIds.includes(tag.id)) ??
+            false),
+      }));
+
+      return { recipes: updatedRecipes };
+    });
+  },
 }));
 
 // Helpers --------------------
