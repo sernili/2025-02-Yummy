@@ -111,12 +111,12 @@ async function getTagData(
         if (doc.exists) {
           return doc?.data();
         } else {
-          console.log("No such document!");
+          console.warn("No such document!");
           return undefined;
         }
       })
       .catch((error) => {
-        console.log("Error getting document:", error);
+        console.error("Error getting document:", error);
         return undefined;
       });
   });
