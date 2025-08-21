@@ -32,7 +32,6 @@ type RecipeBaseProperties = {
   cookingTime?: CookingTime;
   people?: number;
   imageURL?: string;
-  display: boolean;
   steps: Steps[];
   notes?: Notes;
   ingredients: Ingredients[];
@@ -45,6 +44,7 @@ export type RecipeDatabase = RecipeBaseProperties & {
 
 export type Recipe = RecipeBaseProperties & {
   tagData: RecipeTag[] | undefined;
+  display: boolean;
 };
 
 const useRecipeStore = create<RecipeStore>()((set) => ({
@@ -52,7 +52,6 @@ const useRecipeStore = create<RecipeStore>()((set) => ({
   setInitialRecipes: (initialRecipes: Recipe[]) =>
     set({ recipes: initialRecipes }),
 
-  // TODO: push changes to the database!
   updateRecipeDisplay: (selectedTagIds: string[]) => {
     set((state: RecipeStore) => {
       const updatedRecipes: Recipe[] = state.recipes.map((recipe) => ({

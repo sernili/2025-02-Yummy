@@ -83,13 +83,13 @@ async function getInitialRecipes(): Promise<Recipe[]> {
       }
 
       const recipeDBData = recipeDoc.data() as RecipeDatabase;
-      const simplifiedRecipeData: Omit<Recipe, "tagData"> = (({
+      const simplifiedRecipeData: Omit<Recipe, "tagData" | "display"> = (({
         tags,
         tagRefs,
         ...rest
       }) => rest)(recipeDBData);
 
-      recipeData.push({ ...simplifiedRecipeData, tagData });
+      recipeData.push({ ...simplifiedRecipeData, tagData, display: true });
     }
 
     return recipeData;
