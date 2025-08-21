@@ -64,11 +64,10 @@ export function PaginatedRecipeList({
 
   // Filter and Pagination Info ----------------------------------------------
 
-  const { filters, setFilters } = useRecipeFilters();
+  const { filterItemOffset, handleFilterItemOffsetChange } = useRecipeFilters();
   const { selectedTagIds } = useTagStore();
 
-  const [tags] = useState(filters.tags);
-  const [itemOffset, setItemOffset] = useState(filters.itemOffset);
+  const [itemOffset, setItemOffset] = useState(filterItemOffset);
 
   const [pageCount, setPageCount] = useState(getPageCount(recipesToDisplay));
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE_INDEX);
@@ -94,14 +93,6 @@ export function PaginatedRecipeList({
   }, [allRecipes]);
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setFilters({ tags, itemOffset });
-    }, 500);
-
-    return () => clearTimeout(timeoutId);
-  }, [itemOffset]);
-
-  useEffect(() => {
     updateRecipeDisplay(selectedTagIds);
   }, [selectedTagIds]);
 
@@ -114,6 +105,7 @@ export function PaginatedRecipeList({
     const newCurrPage = getCurrentPage(newItemOffset);
 
     setItemOffset(newItemOffset.toString());
+    handleFilterItemOffsetChange(newItemOffset.toString());
     setCurrentPage(newCurrPage);
     setRecipesForCurrPage(getRecipesForCurrPage(newItemOffset, newEndOffset));
   };
@@ -135,6 +127,7 @@ export function PaginatedRecipeList({
     );
 
     setItemOffset(correctedItemOffset.toString());
+    handleFilterItemOffsetChange(correctedItemOffset.toString());
     setCurrentPage(newCurrPage);
     setPageCount(newPageCount);
     setRecipesToDisplay(newRecipesToDisplay);

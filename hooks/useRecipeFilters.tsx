@@ -2,12 +2,15 @@
 
 import useTagStore from "@/store/tags";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export type RecipeFilters = {
   tags: string;
   itemOffset: string;
 };
+
+const ITEM_OFFSET = "itemOffset";
+const TAGS = "tags";
 
 const DEFAULT_ITEM_OFFSET = "0";
 const DEFAULT_TAGS = "";
@@ -21,45 +24,49 @@ const useRecipeFilters = () => {
 
   const { allTags, setSelectedTagIds } = useTagStore();
 
-  const filters = useMemo(() => {
-    return {
-      tags: searchParams.get("tags") || DEFAULT_TAGS,
-      itemOffset: searchParams.get("itemOffset") || DEFAULT_ITEM_OFFSET,
-    };
-  }, [searchParams]);
+  const [filterTags, setFilterTags] = useState(
+    searchParams.get("tags") || DEFAULT_TAGS,
+  );
+  const [filterItemOffset, setFilterItemOffset] = useState(
+    searchParams.get("itemOffset") || DEFAULT_ITEM_OFFSET,
+  );
 
   useEffect(() => {
-    const selectedTagNames = filters.tags.split(",");
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("tags", filterTags);
+    newParams.set("itemOffset", filterItemOffset);
+
+    const url = `${pathname}?${newParams.toString()}`;
+    router.replace(url, { scroll: false });
+  }, [filterTags, filterItemOffset]);
+
+  // Update selectedTagIds
+  useEffect(() => {
+    console.log("setSelectedTagIds", filterTags);
+
+    const selectedTagNames = filterTags.split(",");
 
     const selectedTagIds = allTags
       .filter((tag) => selectedTagNames.includes(tag.uri))
       .map((tag) => tag.id);
 
     setSelectedTagIds(selectedTagIds);
-  }, [filters.tags, allTags]);
+  }, [filterTags, allTags]);
 
-  const setFilters = useCallback(
-    (newFilters: RecipeFilters) => {
-      const currentParams = new URLSearchParams(searchParams.toString());
+  const handleFilterTagChange = (newTags: string) => {
+    setFilterTags(newTags);
+  };
 
-      Object.entries(newFilters).forEach(([key, value]) => {
-        if (value) {
-          currentParams.set(key, value);
-        } else {
-          currentParams.delete(key);
-        }
-      });
+  const handleFilterItemOffsetChange = (newItemOffset: string) => {
+    setFilterItemOffset(newItemOffset);
+  };
 
-      const search = currentParams.toString();
-      const query = search ? `?${search}` : "";
-      const url = `${pathname.split("?")[0]}${query}`;
-
-      router.replace(url, { scroll: false });
-    },
-    [router, searchParams],
-  );
-
-  return { filters, setFilters };
+  return {
+    filterTags,
+    filterItemOffset,
+    handleFilterTagChange,
+    handleFilterItemOffsetChange,
+  };
 };
 
 export default useRecipeFilters;

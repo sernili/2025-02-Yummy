@@ -13,10 +13,11 @@ export default function TagList() {
   const [localSelectedTagIds, setLocalSelectedTagIds] =
     useState<string[]>(selectedTagIds);
 
-  const { filters, setFilters } = useRecipeFilters();
-  const [itemOffset] = useState(filters.itemOffset);
+  const { filterTags, handleFilterTagChange } = useRecipeFilters();
 
   useEffect(() => {
+    console.log("EFFECT");
+
     setLocalSelectedTagIds(selectedTagIds);
     setSortedTags(sortTags(allTags, selectedTagIds));
   }, [selectedTagIds, allTags]);
@@ -38,7 +39,8 @@ export default function TagList() {
       .filter((tag) => newSelectedTagIds.includes(tag.id))
       .map((tag) => tag.uri)
       .join(",");
-    setFilters({ tags: tagsForFilters, itemOffset });
+
+    handleFilterTagChange(tagsForFilters);
 
     // Update Selected Tag Id Lists (Locally and in Store)
     setLocalSelectedTagIds(newSelectedTagIds);
