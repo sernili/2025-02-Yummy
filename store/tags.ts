@@ -1,3 +1,4 @@
+import { useSearchParams } from "next/navigation";
 import { create } from "zustand";
 
 // TODO: move all type declarations to separate place
@@ -9,19 +10,20 @@ export type RecipeTag = {
 
 export type SelectedTagId = string;
 
+// TODO: figure out how to set initial selectedTagIds right
 type TagState = {
-  tags: RecipeTag[];
+  allTags: RecipeTag[];
   selectedTagIds: string[]; // TODO: turn into its own type
   setInitialTags: (initialRecipes: RecipeTag[]) => void;
   setSelectedTagIds: (newSelectedTagIds: SelectedTagId[]) => void;
 };
 
 const useTagStore = create<TagState>((set, get) => ({
-  tags: [],
+  allTags: [],
   selectedTagIds: [],
 
   setInitialTags: (initialRecipeTags: RecipeTag[]) =>
-    set({ tags: initialRecipeTags }),
+    set({ allTags: initialRecipeTags }),
 
   setSelectedTagIds: (newSelectedTagIds: SelectedTagId[]) =>
     set(() => ({ selectedTagIds: newSelectedTagIds })),

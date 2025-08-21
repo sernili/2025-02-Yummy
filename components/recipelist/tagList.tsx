@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useRecipeFilters from "@/hooks/useRecipeFilters";
 import useTagStore, { RecipeTag, SelectedTagId } from "@/store/tags";
 
 export default function TagList() {
-  const { tags, selectedTagIds, setSelectedTagIds } = useTagStore();
+  const { allTags, selectedTagIds, setSelectedTagIds } = useTagStore();
 
   const [sortedTags, setSortedTags] = useState<RecipeTag[]>(
-    sortTags(tags, selectedTagIds),
+    sortTags(allTags, selectedTagIds),
   );
   const [localSelectedTagIds, setLocalSelectedTagIds] =
     useState<string[]>(selectedTagIds);
@@ -17,8 +17,9 @@ export default function TagList() {
   const [itemOffset] = useState(filters.itemOffset);
 
   useEffect(() => {
-    setSortedTags(sortTags(tags, selectedTagIds));
-  }, [tags]);
+    setLocalSelectedTagIds(selectedTagIds);
+    setSortedTags(sortTags(allTags, selectedTagIds));
+  }, [selectedTagIds, allTags]);
 
   const handleClick = (clickedTag: RecipeTag) => {
     const alreadySelected = localSelectedTagIds.includes(clickedTag.id);
@@ -45,7 +46,7 @@ export default function TagList() {
     // Update Selected Tag Id Lists (Locally and in Store)
     setLocalSelectedTagIds(newSelectedTagIds);
     setSelectedTagIds(newSelectedTagIds);
-    setSortedTags(sortTags(tags, newSelectedTagIds));
+    setSortedTags(sortTags(allTags, newSelectedTagIds));
   };
 
   return (
@@ -69,9 +70,9 @@ export default function TagList() {
 
 // Helper Functions ----------------------------------------------
 
-const sortTags = (tags: RecipeTag[], selectedIds: string[]) => {
-  const selectedTags = tags.filter((tag) => selectedIds.includes(tag.id));
-  const otherTags = tags.filter((tag) => !selectedIds.includes(tag.id));
+const sortTags = (allTags: RecipeTag[], selectedIds: string[]) => {
+  const selectedTags = allTags.filter((tag) => selectedIds.includes(tag.id));
+  const otherTags = allTags.filter((tag) => !selectedIds.includes(tag.id));
 
   const sortedSelectedTags = selectedTags.sort((a, b) =>
     a.label.localeCompare(b.label),

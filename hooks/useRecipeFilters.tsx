@@ -21,9 +21,7 @@ const useRecipeFilters = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { tags, selectedTagIds, setSelectedTagIds } = useTagStore();
-
-  console.log("searchParams: ", searchParams.get("tags"));
+  const { allTags, setSelectedTagIds } = useTagStore();
 
   const filters = useMemo(() => {
     return {
@@ -34,19 +32,17 @@ const useRecipeFilters = () => {
 
   useEffect(() => {
     const selectedTagNames = filters.tags.split(",");
-    const selectedTagIds = tags
+
+    const selectedTagIds = allTags
       .filter((tag) => selectedTagNames.includes(tag.uri))
       .map((tag) => tag.id);
 
     setSelectedTagIds(selectedTagIds);
-    console.log("CHANGE", filters.tags);
-  }, [filters.tags]);
+  }, [filters.tags, allTags]);
 
   const setFilters = useCallback(
     (newFilters: RecipeFilters) => {
       const currentParams = new URLSearchParams(searchParams.toString());
-
-      console.log("newFilters: ", newFilters);
 
       Object.entries(newFilters).forEach(([key, value]) => {
         if (value) {
