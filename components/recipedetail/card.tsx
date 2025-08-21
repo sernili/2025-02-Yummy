@@ -10,7 +10,8 @@ import Notes from "./notes";
 
 export default function RecipeCard({ slug }: { slug: string }) {
   const { recipes } = useRecipeStore();
-  const titleFromSlug = slug.replaceAll("%20", " ");
+
+  const titleFromSlug = decodeURIComponent(slug);
 
   const recipe = recipes.find(
     (recipe: Recipe) => recipe.title === titleFromSlug,
