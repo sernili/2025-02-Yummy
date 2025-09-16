@@ -48,8 +48,6 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.variable} ${knewave.variable} ${caveat.variable}`}
     >
-      <link rel="icon" href="/favicon.ico" sizes="any" />
-
       <body
         className={
           "bg-secondary m-0 flex min-h-screen flex-col items-center overflow-scroll font-sans"

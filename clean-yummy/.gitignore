@@ -19,6 +19,3 @@ BUILD_ID
 app-path-routes-manifest.json
 app-build-manifest.json
 plan.md
-node_modules/
-node_modules/
-.DS_Store

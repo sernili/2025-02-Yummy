@@ -1,0 +1,16 @@
+[
+  { "id": "00001", "label": "Fisch", "uri": "fisch" },
+  { "id": "00002", "label": "Fleisch", "uri": "fleisch" },
+  { "id": "00003", "label": "Frühstück", "uri": "fr%C3%BChst%C3%BCck" },
+  { "id": "00004", "label": "Gesund", "uri": "gesund" },
+  { "id": "00005", "label": "Getränke", "uri": "getr%C3%A4nke" },
+  { "id": "00006", "label": "Grillen", "uri": "grillen" },
+  { "id": "00007", "label": "Indisch", "uri": "indisch" },
+  { "id": "00008", "label": "Orientalisch", "uri": "orientalisch" },
+  { "id": "00009", "label": "Salat", "uri": "salat" },
+  { "id": "00010", "label": "Schnell", "uri": "schnell" },
+  { "id": "00011", "label": "Suppe", "uri": "suppe" },
+  { "id": "00012", "label": "Süß", "uri": "s%C3%BC%C3%9F" },
+  { "id": "00013", "label": "Vegan", "uri": "vegan" },
+  { "id": "00014", "label": "Vegetarisch", "uri": "vegetarisch" }
+]

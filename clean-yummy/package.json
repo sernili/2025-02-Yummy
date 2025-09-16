@@ -1,0 +1,51 @@
+{
+  "homepage": "https://sernili.github.io/2025-02-Yummy",
+  "name": "yummy",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "resetRecipes": "node utils/scripts/deleteAllEntries.js target=recipes && node utils/scripts/seedRecipes.js && node utils/scripts/linkRecipesAndTags.js"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.8",
+    "dotenv": "^16.5.0",
+    "firebase": "^11.6.1",
+    "firebase-admin": "^13.3.0",
+    "next": "^15.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-jsx": "^1.0.0",
+    "react-paginate": "^8.3.0",
+    "styled-jsx": "^5.1.6",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/babel__core": "^7.20.5",
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__template": "^7.4.4",
+    "@types/babel__traverse": "^7.20.6",
+    "@types/estree": "^1.0.6",
+    "@types/gensync": "^1.0.4",
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "22.15.3",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.14.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.0.8",
+    "typescript-eslint": "^8.22.0"
+  }
+}
