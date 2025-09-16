@@ -19,6 +19,8 @@ export default function Banner() {
     "/list": "Einkaufsliste",
   };
 
+  console.log("Test git");
+
   return (
     <div className="relative my-4 max-h-96 overflow-hidden rounded-xl">
       <Image
